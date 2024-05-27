@@ -1,0 +1,41 @@
+package az.m10.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Getter
+@Setter
+@ToString
+@Entity
+@Table(name = "locations")
+public class Location extends BaseEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "description", length = 200)
+    private String desc;
+
+    @Column(name = "target", length = 200)
+    private String target;
+
+    @Column(name = "district", length = 200)
+    private String district;
+
+    @Column(name = "market", length = 200)
+    private String market;
+
+    @Column(name = "subway", length = 200)
+    private String subway;
+
+    private Integer capacity;
+
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Reservation> reservations;
+}

@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: classpath:/db/changelog/changes/users.sql
+  - include:
+      file: classpath:/db/changelog/changes/authorities.sql
+  - include:
+      file: classpath:/db/changelog/changes/user_authorities.sql
+  - include:
+      file: classpath:/db/changelog/changes/volunteers.sql
+  - include:
+      file: classpath:/db/changelog/changes/locations.sql
+  - include:
+      file: classpath:/db/changelog/changes/reservations.sql
