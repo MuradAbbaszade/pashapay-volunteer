@@ -2,6 +2,7 @@ package az.m10.service;
 
 import az.m10.domain.Reservation;
 import az.m10.dto.ReservationStatusMessage;
+import az.m10.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -14,6 +15,7 @@ import java.util.List;
 public class ReservationStatusService {
     private final ReservationService reservationService;
     private final SimpMessagingTemplate messagingTemplate;
+    private final ReservationRepository reservationRepository;
 
     @Scheduled(fixedRate = 60000)
     public void checkExpiredReservations() {
@@ -21,7 +23,9 @@ public class ReservationStatusService {
         if (!expiredReservations.isEmpty()) {
             for (Reservation reservation : expiredReservations) {
                 messagingTemplate.convertAndSend("/topic/status",
-                        new ReservationStatusMessage(reservation.getId(), "expired"));
+                        new ReservationStatusMessage(reservation.getId()));
+                reservation.setStatus(false);
+                reservationRepository.save(reservation);
             }
         }
     }

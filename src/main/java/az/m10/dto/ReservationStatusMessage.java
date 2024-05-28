@@ -9,6 +9,4 @@ import lombok.*;
 @NoArgsConstructor
 public class ReservationStatusMessage {
     private Long reservationId;
-
-    private String expired;
 }

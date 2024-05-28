@@ -16,5 +16,4 @@ public interface ReservationRepository extends BaseJpaRepository<Reservation, Lo
 
     @Query("SELECT r FROM Reservation r WHERE r.endTime < CURRENT_TIME AND r.status = true")
     List<Reservation> findExpiredReservations();
-
 }
