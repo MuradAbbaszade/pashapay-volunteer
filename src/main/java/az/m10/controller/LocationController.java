@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/location")
-@CrossOrigin(origins = "http://localhost:3000, https://adminve3.vercel.app")
+@CrossOrigin(origins = "*")
 public class LocationController extends GenericController<Location, LocationDTO> {
 
     private LocationService locationService;

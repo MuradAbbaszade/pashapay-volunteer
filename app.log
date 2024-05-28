@@ -1,0 +1,134 @@
+Exception in thread "DisconnectableInputStream source reader" org.gradle.api.UncheckedIOException: java.io.IOException: Bad file descriptor
+	at org.gradle.internal.UncheckedException.throwAsUncheckedException(UncheckedException.java:62)
+	at org.gradle.internal.UncheckedException.throwAsUncheckedException(UncheckedException.java:41)
+	at org.gradle.util.internal.DisconnectableInputStream$1.run(DisconnectableInputStream.java:127)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+Caused by: java.io.IOException: Bad file descriptor
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:279)
+	at java.base/java.io.BufferedInputStream.read1(BufferedInputStream.java:290)
+	at java.base/java.io.BufferedInputStream.read(BufferedInputStream.java:351)
+	at org.gradle.util.internal.DisconnectableInputStream$1.run(DisconnectableInputStream.java:98)
+	... 1 more
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :bootRunMainClassName UP-TO-DATE
+
+> Task :bootRun
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.17)
+
+2024-05-28 15:11:49.610  INFO 44378 --- [           main] az.m10.M10ReservationApplication         : Starting M10ReservationApplication using Java 11.0.22 on 45.95.214.69 with PID 44378 (/root/pashapay-volunteer/build/classes/java/main started by root in /root/pashapay-volunteer)
+2024-05-28 15:11:49.619  INFO 44378 --- [           main] az.m10.M10ReservationApplication         : No active profile set, falling back to 1 default profile: "default"
+2024-05-28 15:11:54.138  INFO 44378 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-28 15:11:54.503  INFO 44378 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 322 ms. Found 5 JPA repository interfaces.
+2024-05-28 15:11:58.483  INFO 44378 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 443 (https)
+2024-05-28 15:11:58.571  INFO 44378 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-28 15:11:58.572  INFO 44378 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.82]
+2024-05-28 15:11:59.276  INFO 44378 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-05-28 15:11:59.278  INFO 44378 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 9353 ms
+2024-05-28 15:11:59.655  INFO 44378 --- [           main] o.s.c.g.a.s.GcpCloudSqlAutoConfiguration : Default MYSQL JdbcUrl provider. Connecting to jdbc:mysql://google/pashapay?socketFactory=com.google.cloud.sql.mysql.SocketFactory&cloudSqlInstance=pashapay-423917:europe-central2:pashapay with driver com.mysql.cj.jdbc.Driver
+2024-05-28 15:11:59.666  WARN 44378 --- [           main] o.s.c.g.a.s.GcpCloudSqlAutoConfiguration : spring.datasource.driver-class-name is specified. Not using generated Cloud SQL configuration
+2024-05-28 15:11:59.667  WARN 44378 --- [           main] o.s.c.g.a.s.GcpCloudSqlAutoConfiguration : Ignoring provided spring.datasource.url. Overwriting it based on the spring.cloud.gcp.sql.instance-connection-name.
+2024-05-28 15:12:00.047  INFO 44378 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-05-28 15:12:00.348  INFO 44378 --- [           main] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:12:00.351  INFO 44378 --- [           main] c.g.cloud.sql.core.CoreSocketFactory     : First Cloud SQL connection, generating RSA key pair.
+2024-05-28 15:12:07.332  INFO 44378 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-05-28 15:12:07.456  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:12:08.038  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:12:08.601  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:12:08.732  WARN 44378 --- [           main] liquibase.util                           : Failed to perform a method call for SnakeYaml because the version of SnakeYaml being used is too old. Consider upgrading to a SnakeYaml version equal to or newer than 1.32, by downloading and installing a newer version of Liquibase (which includes a newer version of SnakeYaml). Loading particularly large JSON and YAML documents (like snapshots) in Liquibase may fail if SnakeYaml is not upgraded.
+2024-05-28 15:12:09.157  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:12:09.744  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:12:10.308  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:12:10.755  INFO 44378 --- [           main] liquibase.changelog                      : Reading from pashapay.DATABASECHANGELOG
+2024-05-28 15:12:10.835  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+Database is up to date, no changesets to execute
+2024-05-28 15:12:11.340  INFO 44378 --- [           main] liquibase.changelog                      : Reading from pashapay.DATABASECHANGELOG
+2024-05-28 15:12:11.367  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:12:11.503  INFO 44378 --- [           main] liquibase.util                           : UPDATE SUMMARY
+2024-05-28 15:12:11.503  INFO 44378 --- [           main] liquibase.util                           : Run:                          0
+2024-05-28 15:12:11.503  INFO 44378 --- [           main] liquibase.util                           : Previously run:               6
+2024-05-28 15:12:11.503  INFO 44378 --- [           main] liquibase.util                           : Filtered out:                 0
+2024-05-28 15:12:11.503  INFO 44378 --- [           main] liquibase.util                           : -------------------------------
+2024-05-28 15:12:11.503  INFO 44378 --- [           main] liquibase.util                           : Total change sets:            6
+2024-05-28 15:12:11.504  INFO 44378 --- [           main] liquibase.util                           : Update summary generated
+2024-05-28 15:12:11.753  INFO 44378 --- [           main] liquibase.lockservice                    : Successfully released change log lock
+2024-05-28 15:12:11.822  INFO 44378 --- [           main] liquibase.command                        : Command execution complete
+2024-05-28 15:12:11.932  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:12:12.428  INFO 44378 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-28 15:12:12.868  INFO 44378 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.10.Final
+2024-05-28 15:12:15.025  INFO 44378 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-05-28 15:12:15.789  INFO 44378 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2024-05-28 15:12:20.135  INFO 44378 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-28 15:12:20.204  INFO 44378 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-28 15:12:26.568  WARN 44378 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-28 15:12:27.888  INFO 44378 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@54faa040, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@35d4fecf, org.springframework.security.web.context.SecurityContextPersistenceFilter@6e627ab8, org.springframework.security.web.header.HeaderWriterFilter@3cc2c4b8, org.springframework.web.filter.CorsFilter@22195d06, org.springframework.security.web.authentication.logout.LogoutFilter@31885b4b, az.m10.filter.JwtAuthFilter@140cfc5f, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@16b713dd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@496004e3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@703947bd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1f591b2e, org.springframework.security.web.session.SessionManagementFilter@113e6e06, org.springframework.security.web.access.ExceptionTranslationFilter@3013e1e8, org.springframework.security.web.access.intercept.AuthorizationFilter@7c7a4986]
+2024-05-28 15:12:29.848  WARN 44378 --- [           main] o.s.c.g.core.DefaultCredentialsProvider  : No core credentials are set. Service-specific credentials (e.g., spring.cloud.gcp.pubsub.credentials.*) should be used if your app uses services that require credentials.
+
+java.io.IOException: The Application Default Credentials are not available. They are available if running in Google Compute Engine. Otherwise, the environment variable GOOGLE_APPLICATION_CREDENTIALS must be defined pointing to a file defining the credentials. See https://developers.google.com/accounts/docs/application-default-credentials for more information.
+	at com.google.auth.oauth2.DefaultCredentialsProvider.getDefaultCredentials(DefaultCredentialsProvider.java:127) ~[google-auth-library-oauth2-http-1.15.0.jar:na]
+	at com.google.auth.oauth2.GoogleCredentials.getApplicationDefault(GoogleCredentials.java:129) ~[google-auth-library-oauth2-http-1.15.0.jar:na]
+	at com.google.auth.oauth2.GoogleCredentials.getApplicationDefault(GoogleCredentials.java:101) ~[google-auth-library-oauth2-http-1.15.0.jar:na]
+	at com.google.api.gax.core.GoogleCredentialsProvider.getCredentials(GoogleCredentialsProvider.java:70) ~[gax-2.23.0.jar:2.23.0]
+	at org.springframework.cloud.gcp.core.DefaultCredentialsProvider.<init>(DefaultCredentialsProvider.java:110) ~[spring-cloud-gcp-core-1.2.8.RELEASE.jar:1.2.8.RELEASE]
+	at org.springframework.cloud.gcp.autoconfigure.core.GcpContextAutoConfiguration.googleCredentials(GcpContextAutoConfiguration.java:61) ~[spring-cloud-gcp-autoconfigure-1.2.8.RELEASE.jar:1.2.8.RELEASE]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154) ~[spring-beans-5.3.30.jar:5.3.30]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648) ~[spring-beans-5.3.30.jar:5.3.30]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:481) ~[spring-beans-5.3.30.jar:5.3.30]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1352) ~[spring-beans-5.3.30.jar:5.3.30]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1195) ~[spring-beans-5.3.30.jar:5.3.30]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582) ~[spring-beans-5.3.30.jar:5.3.30]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.30.jar:5.3.30]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.30.jar:5.3.30]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.30.jar:5.3.30]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.30.jar:5.3.30]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.30.jar:5.3.30]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955) ~[spring-beans-5.3.30.jar:5.3.30]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:921) ~[spring-context-5.3.30.jar:5.3.30]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.30.jar:5.3.30]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.17.jar:2.7.17]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:732) ~[spring-boot-2.7.17.jar:2.7.17]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:409) ~[spring-boot-2.7.17.jar:2.7.17]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-2.7.17.jar:2.7.17]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1300) ~[spring-boot-2.7.17.jar:2.7.17]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1289) ~[spring-boot-2.7.17.jar:2.7.17]
+	at az.m10.M10ReservationApplication.main(M10ReservationApplication.java:12) ~[main/:na]
+
+2024-05-28 15:12:30.037  INFO 44378 --- [           main] o.s.c.g.a.c.GcpContextAutoConfiguration  : The default project ID is null
+2024-05-28 15:12:31.410  INFO 44378 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-443], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [file:/root/keystore.p12] using alias [mycert] with trust store [null]
+2024-05-28 15:12:31.517  INFO 44378 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 443 (https) with context path ''
+2024-05-28 15:12:31.530  INFO 44378 --- [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-05-28 15:12:31.531  INFO 44378 --- [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@63e0c744]]
+2024-05-28 15:12:31.531  INFO 44378 --- [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-05-28 15:12:31.614  INFO 44378 --- [           main] az.m10.M10ReservationApplication         : Started M10ReservationApplication in 44.721 seconds (JVM running for 46.895)
+2024-05-28 15:13:08.399  INFO 44378 --- [-nio-443-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-28 15:13:08.400  INFO 44378 --- [-nio-443-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-05-28 15:13:08.426  INFO 44378 --- [-nio-443-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 26 ms
+2024-05-28 15:13:28.076  INFO 44378 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-05-28 15:13:46.443  INFO 44378 --- [-nio-443-exec-5] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 1762 ms
+2024-05-28 15:41:13.245 ERROR 44378 --- [-nio-443-exec-9] az.m10.auth.AuthEntryPointJwt            : Unauthorized error: Full authentication is required to access this resource
+2024-05-28 15:41:27.561  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:41:28.219  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:41:33.251  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:41:39.417  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:41:59.150  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:41:59.676  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:42:00.214  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:42:03.891  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:42:06.251  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:42:08.079  INFO 44378 --- [onnection adder] c.g.cloud.sql.core.CoreSocketFactory     : Connecting to Cloud SQL instance [pashapay-423917:europe-central2:pashapay] via SSL socket.
+2024-05-28 15:43:28.080  INFO 44378 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 0, completed tasks = 1]
+2024-05-28 15:48:10.147  INFO 44378 --- [-nio-443-exec-1] az.m10.exception.RestExceptionHandler    : An error occurred: When allowCredentials is true, allowedOrigins cannot contain the special value "*" since that cannot be set on the "Access-Control-Allow-Origin" response header. To allow credentials to a set of origins, list them explicitly or consider using "allowedOriginPatterns" instead.
+2024-05-28 15:49:32.284  INFO 44378 --- [-nio-443-exec-8] az.m10.exception.RestExceptionHandler    : An error occurred: When allowCredentials is true, allowedOrigins cannot contain the special value "*" since that cannot be set on the "Access-Control-Allow-Origin" response header. To allow credentials to a set of origins, list them explicitly or consider using "allowedOriginPatterns" instead.
