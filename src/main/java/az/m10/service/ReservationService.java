@@ -99,4 +99,8 @@ public class ReservationService {
                 () -> new CustomNotFoundException("Reservation not found")
         );
     }
+
+    public List<Reservation> findExpiredReservations(){
+        return reservationRepository.findExpiredReservations();
+    }
 }
