@@ -39,7 +39,6 @@ public class ReservationService {
     public ReservationResponse add(ReservationRequestDTO dto, User user) {
         ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
         ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
-        azerbaijanTime.plusHours(1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String reservationTime = azerbaijanTime.format(formatter);
 
@@ -55,7 +54,7 @@ public class ReservationService {
         Reservation reservation = new Reservation();
         reservation.setVolunteer(volunteer);
         reservation.setLocation(location);
-        reservation.setStartTime(LocalTime.parse(reservationTime));
+        reservation.setStartTime(LocalTime.parse(reservationTime).plusHours(1));
         reservation.setEndTime(LocalTime.parse(reservationTime).plusHours(dto.getRange()));
         reservation.setStatus(ReservationStatus.WAITING_FOR_APPROVE);
         if (isAvailable) {
