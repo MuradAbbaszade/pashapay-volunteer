@@ -23,7 +23,6 @@ public class VolunteerDTO extends BaseDTO<Volunteer>{
     @Size(max = 100)
     private String username;
 
-    @NotEmpty
     @Size(max = 100)
     private String password;
 

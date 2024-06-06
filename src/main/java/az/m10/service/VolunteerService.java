@@ -64,7 +64,6 @@ public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
         );
         User user = volunteer.getUser();
         user.setUsername(dto.getUsername());
-        user.setPassword(dto.getPassword());
         volunteer = dto.toEntity(Optional.of(volunteer));
         volunteerRepository.save(volunteer);
         return volunteer;
