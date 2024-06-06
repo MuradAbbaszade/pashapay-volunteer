@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,9 @@ public class ReservationService {
     }
 
     public ReservationResponse add(ReservationRequestDTO dto, User user) {
-        LocalTime reservationTime = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime currentTime = LocalTime.now();
+        String reservationTime = currentTime.format(formatter);
 
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
@@ -48,8 +51,8 @@ public class ReservationService {
         Reservation reservation = new Reservation();
         reservation.setVolunteer(volunteer);
         reservation.setLocation(location);
-        reservation.setStartTime(reservationTime);
-        reservation.setEndTime(reservationTime.plusHours(dto.getRange()));
+        reservation.setStartTime(LocalTime.parse(reservationTime));
+        reservation.setEndTime(LocalTime.parse(reservationTime).plusHours(dto.getRange()));
         reservation.setStatus(ReservationStatus.WAITING_FOR_APPROVE);
         if (isAvailable) {
             reservationRepository.save(reservation);
@@ -59,7 +62,9 @@ public class ReservationService {
     }
 
     public ReservationResponse quickReserve(ReservationRequestDTO dto, User user) {
-        LocalTime reservationTime = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime currentTime = LocalTime.now();
+        String reservationTime = currentTime.format(formatter);
 
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
@@ -68,7 +73,7 @@ public class ReservationService {
                 () -> new CustomNotFoundException("Location not found")
         );
         boolean isAvailable = locationService.checkLocationIsAvailable(
-                new LocationRequestDTO(null, null, null, dto.getRange(), reservationTime.toString()), dto.getLocationId()
+                new LocationRequestDTO(null, null, null, dto.getRange(), reservationTime), dto.getLocationId()
         );
         Reservation reservation = new Reservation();
         reservation.setVolunteer(volunteer);
