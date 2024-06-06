@@ -39,6 +39,7 @@ public class ReservationService {
     public ReservationResponse add(ReservationRequestDTO dto, User user) {
         ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
         ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
+        azerbaijanTime.plusHours(1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String reservationTime = azerbaijanTime.format(formatter);
 

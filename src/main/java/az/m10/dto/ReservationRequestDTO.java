@@ -1,6 +1,4 @@
 package az.m10.dto;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;

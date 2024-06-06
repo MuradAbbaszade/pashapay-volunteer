@@ -41,6 +41,7 @@ public class LocationController extends GenericController<Location, LocationDTO>
             @RequestParam Integer range) {
         ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
         ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
+        azerbaijanTime.plusHours(1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String reservationTime = azerbaijanTime.format(formatter);
 
