@@ -15,9 +15,5 @@ public class ReservationRequestDTO {
     private Long locationId;
 
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private String startTime;
-
-    @NotNull
     private Integer range;
 }

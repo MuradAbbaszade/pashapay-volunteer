@@ -36,6 +36,7 @@ public class Reservation extends BaseEntity {
     @Column(name = "created_at", updatable = false)
     private LocalDate createdAt;
 
+    @Enumerated(EnumType.STRING)
     private ReservationStatus status;
 
     @PrePersist

@@ -34,6 +34,8 @@ public class ReservationService {
     }
 
     public ReservationResponse add(ReservationRequestDTO dto, User user) {
+        LocalTime reservationTime = LocalTime.now();
+
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
         );
@@ -41,13 +43,13 @@ public class ReservationService {
                 () -> new CustomNotFoundException("Location not found")
         );
         boolean isAvailable = locationService.checkLocationIsAvailable(
-                new LocationRequestDTO(null, null, null, dto.getRange(), dto.getStartTime()), dto.getLocationId()
+                new LocationRequestDTO(null, null, null, dto.getRange(), reservationTime.toString()), dto.getLocationId()
         );
         Reservation reservation = new Reservation();
         reservation.setVolunteer(volunteer);
         reservation.setLocation(location);
-        reservation.setStartTime(LocalTime.parse(dto.getStartTime()));
-        reservation.setEndTime(LocalTime.parse(dto.getStartTime()).plusHours(dto.getRange()));
+        reservation.setStartTime(reservationTime);
+        reservation.setEndTime(reservationTime.plusHours(dto.getRange()));
         reservation.setStatus(ReservationStatus.WAITING_FOR_APPROVE);
         if (isAvailable) {
             reservationRepository.save(reservation);
@@ -57,6 +59,8 @@ public class ReservationService {
     }
 
     public ReservationResponse quickReserve(ReservationRequestDTO dto, User user) {
+        LocalTime reservationTime = LocalTime.now();
+
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
         );
@@ -64,7 +68,7 @@ public class ReservationService {
                 () -> new CustomNotFoundException("Location not found")
         );
         boolean isAvailable = locationService.checkLocationIsAvailable(
-                new LocationRequestDTO(null, null, null, dto.getRange(), dto.getStartTime()), dto.getLocationId()
+                new LocationRequestDTO(null, null, null, dto.getRange(), reservationTime.toString()), dto.getLocationId()
         );
         Reservation reservation = new Reservation();
         reservation.setVolunteer(volunteer);

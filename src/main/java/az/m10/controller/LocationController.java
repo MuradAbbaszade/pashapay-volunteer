@@ -35,9 +35,8 @@ public class LocationController extends GenericController<Location, LocationDTO>
             @RequestParam(required = false) String district,
             @RequestParam(required = false) String subway,
             @RequestParam(required = false) String market,
-            @RequestParam Integer range,
-            @RequestParam @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm") String reservationTime) {
-
+            @RequestParam Integer range) {
+        String reservationTime = LocalTime.now().toString();
         LocationRequestDTO locationRequestDTO = new LocationRequestDTO(market, subway, district, range, reservationTime);
 
         List<Location> locations = locationService.findBySubwayDistrictMarket(
