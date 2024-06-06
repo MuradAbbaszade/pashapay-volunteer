@@ -39,7 +39,7 @@ public class LocationController extends GenericController<Location, LocationDTO>
             @RequestParam Integer range) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime currentTime = LocalTime.now();
-        String reservationTime = currentTime.format(formatter);d
+        String reservationTime = currentTime.format(formatter);
         LocationRequestDTO locationRequestDTO = new LocationRequestDTO(market, subway, district, range, reservationTime);
 
         List<Location> locations = locationService.findBySubwayDistrictMarket(
