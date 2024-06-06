@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +39,11 @@ public class LocationController extends GenericController<Location, LocationDTO>
             @RequestParam(required = false) String subway,
             @RequestParam(required = false) String market,
             @RequestParam Integer range) {
+        ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
+        ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime currentTime = LocalTime.now();
-        String reservationTime = currentTime.format(formatter);
+        String reservationTime = azerbaijanTime.format(formatter);
+
         LocationRequestDTO locationRequestDTO = new LocationRequestDTO(market, subway, district, range, reservationTime);
 
         List<Location> locations = locationService.findBySubwayDistrictMarket(

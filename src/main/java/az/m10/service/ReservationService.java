@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +37,10 @@ public class ReservationService {
     }
 
     public ReservationResponse add(ReservationRequestDTO dto, User user) {
+        ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
+        ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime currentTime = LocalTime.now();
-        String reservationTime = currentTime.format(formatter);
+        String reservationTime = azerbaijanTime.format(formatter);
 
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
@@ -62,9 +65,10 @@ public class ReservationService {
     }
 
     public ReservationResponse quickReserve(ReservationRequestDTO dto, User user) {
+        ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
+        ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime currentTime = LocalTime.now();
-        String reservationTime = currentTime.format(formatter);
+        String reservationTime = azerbaijanTime.format(formatter);
 
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
