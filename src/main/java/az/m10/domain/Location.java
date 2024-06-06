@@ -37,5 +37,6 @@ public class Location extends BaseEntity{
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
+    @ToString.Exclude
     private List<Reservation> reservations;
 }

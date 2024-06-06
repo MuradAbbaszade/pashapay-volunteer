@@ -58,8 +58,10 @@ public class Volunteer extends BaseEntity {
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
-    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL, orphanRemoval = true,
+            fetch = FetchType.EAGER)
     @JsonIgnore
+    @ToString.Exclude
     private List<Reservation> reservations;
 
     @PrePersist
