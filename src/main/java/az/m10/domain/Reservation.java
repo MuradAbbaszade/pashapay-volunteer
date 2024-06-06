@@ -1,6 +1,6 @@
 package az.m10.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import az.m10.domain.enums.ReservationStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,7 +36,7 @@ public class Reservation extends BaseEntity {
     @Column(name = "created_at", updatable = false)
     private LocalDate createdAt;
 
-    private Boolean status;
+    private ReservationStatus status;
 
     @PrePersist
     public void prePersist() {

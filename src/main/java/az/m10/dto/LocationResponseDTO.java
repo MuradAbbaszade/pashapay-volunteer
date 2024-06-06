@@ -3,6 +3,8 @@ package az.m10.dto;
 import az.m10.domain.Location;
 import lombok.*;
 
+import java.util.List;
+
 @Setter
 @Builder
 @AllArgsConstructor
@@ -18,6 +20,8 @@ public class LocationResponseDTO {
     private Boolean isValid;
 
     private String market;
+
+    private List<ReservationTimeResponse> reservationTimeResponses;
 
     public LocationResponseDTO(Location location){
         this.id = location.getId();

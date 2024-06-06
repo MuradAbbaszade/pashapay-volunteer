@@ -2,7 +2,8 @@ package az.m10.controller;
 
 import az.m10.auth.UserDetailsService;
 import az.m10.domain.User;
-import az.m10.dto.ReservationDTO;
+import az.m10.domain.enums.ReservationStatus;
+import az.m10.dto.ReservationRequestDTO;
 import az.m10.dto.ReservationResponse;
 import az.m10.dto.ReservationResponseDTO;
 import az.m10.repository.UserRepository;
@@ -43,7 +44,7 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservationResponse> add(@RequestBody ReservationDTO reservationDTO, Principal principal) {
+    public ResponseEntity<ReservationResponse> add(@RequestBody ReservationRequestDTO reservationDTO, Principal principal) {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         ReservationResponse reservationResponse = reservationService.add(reservationDTO, user);
         if (reservationResponse == null) throw new IllegalArgumentException("Location is not available");
@@ -58,5 +59,23 @@ public class ReservationController {
         ReservationResponse reservationResponse = reservationService.addTimeToReservation(reservationId, user);
         if (reservationResponse == null) throw new IllegalArgumentException("Location is not available");
         return ResponseEntity.ok(reservationResponse);
+    }
+
+    @PostMapping("reserve")
+    public ResponseEntity<ReservationResponse> quickReserve(
+            @RequestBody ReservationRequestDTO reservationDTO, Principal principal) {
+        User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+        ReservationResponse reservationResponse = reservationService.quickReserve(reservationDTO, user);
+        if (reservationResponse == null) throw new IllegalArgumentException("Location is not available");
+        return ResponseEntity.ok(reservationResponse);
+    }
+
+    @PostMapping("approve-reservation")
+    public ResponseEntity<Boolean> approveReservation(
+            @RequestParam("reservation-id") Long reservationId,
+            Principal principal) {
+        User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+        boolean approved = reservationService.approveReservation(reservationId, user);
+        return ResponseEntity.ok(true);
     }
 }

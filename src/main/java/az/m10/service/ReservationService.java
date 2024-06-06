@@ -4,10 +4,8 @@ import az.m10.domain.Location;
 import az.m10.domain.Reservation;
 import az.m10.domain.User;
 import az.m10.domain.Volunteer;
-import az.m10.dto.LocationRequestDTO;
-import az.m10.dto.ReservationDTO;
-import az.m10.dto.ReservationResponse;
-import az.m10.dto.ReservationResponseDTO;
+import az.m10.domain.enums.ReservationStatus;
+import az.m10.dto.*;
 import az.m10.exception.CustomNotFoundException;
 import az.m10.repository.LocationRepository;
 import az.m10.repository.ReservationRepository;
@@ -35,7 +33,7 @@ public class ReservationService {
         this.locationService = locationService;
     }
 
-    public ReservationResponse add(ReservationDTO dto, User user) {
+    public ReservationResponse add(ReservationRequestDTO dto, User user) {
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
         );
@@ -50,12 +48,49 @@ public class ReservationService {
         reservation.setLocation(location);
         reservation.setStartTime(LocalTime.parse(dto.getStartTime()));
         reservation.setEndTime(LocalTime.parse(dto.getStartTime()).plusHours(dto.getRange()));
-        reservation.setStatus(true);
+        reservation.setStatus(ReservationStatus.WAITING_FOR_APPROVE);
         if (isAvailable) {
             reservationRepository.save(reservation);
             return new ReservationResponse(reservation);
         }
         return null;
+    }
+
+    public ReservationResponse quickReserve(ReservationRequestDTO dto, User user) {
+        Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
+                () -> new CustomNotFoundException("Volunteer not found")
+        );
+        Location location = locationRepository.findById(dto.getLocationId()).orElseThrow(
+                () -> new CustomNotFoundException("Location not found")
+        );
+        boolean isAvailable = locationService.checkLocationIsAvailable(
+                new LocationRequestDTO(null, null, null, dto.getRange(), dto.getStartTime()), dto.getLocationId()
+        );
+        Reservation reservation = new Reservation();
+        reservation.setVolunteer(volunteer);
+        reservation.setLocation(location);
+        reservation.setStartTime(LocalTime.now());
+        reservation.setEndTime(LocalTime.now().plusHours(dto.getRange()));
+        reservation.setStatus(ReservationStatus.APPROVED);
+        if (isAvailable) {
+            reservationRepository.save(reservation);
+            return new ReservationResponse(reservation);
+        }
+        return null;
+    }
+
+    public boolean approveReservation(Long reservationId, User user){
+        Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
+                () -> new CustomNotFoundException("Volunteer not found")
+        );
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(
+                () -> new CustomNotFoundException("Reservation not found")
+        );
+        if (reservation.getStatus().equals(ReservationStatus.WAITING_FOR_APPROVE)){
+            reservation.setStatus(ReservationStatus.APPROVED);
+        }
+        reservationRepository.save(reservation);
+        return true;
     }
 
     public ReservationResponse addTimeToReservation(Long reservationId, User user) {
@@ -73,7 +108,7 @@ public class ReservationService {
         reservation.setLocation(oldReservation.getLocation());
         reservation.setStartTime(oldReservation.getEndTime());
         reservation.setEndTime(oldReservation.getEndTime().plusHours(1));
-        reservation.setStatus(true);
+        reservation.setStatus(ReservationStatus.APPROVED);
         if (isAvailable) {
             reservationRepository.save(reservation);
             return new ReservationResponse(reservation);
@@ -100,7 +135,7 @@ public class ReservationService {
         );
     }
 
-    public List<Reservation> findExpiredReservations(){
+    public List<Reservation> findExpiredReservations() {
         return reservationRepository.findExpiredReservations();
     }
 }

@@ -1,6 +1,5 @@
 package az.m10.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
@@ -10,13 +9,9 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservationDTO {
+public class QuickReservationRequest {
     @NotNull
     private Long locationId;
-
-    @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private String startTime;
 
     @NotNull
     private Integer range;
