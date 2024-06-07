@@ -44,7 +44,7 @@ public abstract class GenericController<T extends BaseEntity, E extends BaseDTO>
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<T> findById(@PathVariable Long id) {
+    public ResponseEntity<E> findById(@PathVariable Long id) {
         return ResponseEntity.ok(genericService.findById(id));
     }
 
@@ -55,7 +55,7 @@ public abstract class GenericController<T extends BaseEntity, E extends BaseDTO>
     }
 
     @GetMapping
-    public List<T> findAll() {
+    public List<E> findAll() {
         return genericService.findAll();
     }
 }

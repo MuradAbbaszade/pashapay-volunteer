@@ -6,6 +6,6 @@ import lombok.EqualsAndHashCode;
 import java.util.Optional;
 
 @EqualsAndHashCode
-public abstract class BaseDTO<T extends BaseEntity> {
-    public abstract T toEntity(Optional<T> existingEntity);
+public abstract class BaseDTO<E extends BaseEntity> {
+    public abstract E toEntity(Optional<E> existingEntity);
 }

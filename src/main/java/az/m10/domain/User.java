@@ -12,7 +12,7 @@ import java.util.*;
 @ToString
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity implements UserDetails {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

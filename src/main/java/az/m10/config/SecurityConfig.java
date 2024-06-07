@@ -38,8 +38,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authz) -> authz
                         .antMatchers("/api/v1/auth/sign-in").permitAll()
                         .antMatchers("/api/v1/location/").hasAnyAuthority("ADMIN")
-                        .antMatchers("/api/v1/location/search").hasAnyAuthority("VOLUNTEER")
-                        .antMatchers("/api/v1/reservation/**").hasAnyAuthority("VOLUNTEER")
+                        .antMatchers("/api/v1/location/search").hasAnyAuthority("VOLUNTEER", "ADMIN")
+                        .antMatchers("/api/v1/reservation/**").hasAnyAuthority("VOLUNTEER","ADMIN")
                         .antMatchers("/api/v1/admin/**").hasAnyAuthority("ADMIN")
                         .anyRequest().permitAll()
                 )

@@ -3,10 +3,7 @@ package az.m10.service;
 import az.m10.domain.*;
 import az.m10.dto.VolunteerDTO;
 import az.m10.exception.CustomNotFoundException;
-import az.m10.repository.AuthorityRepository;
-import az.m10.repository.BaseJpaRepository;
-import az.m10.repository.UserRepository;
-import az.m10.repository.VolunteerRepository;
+import az.m10.repository.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,16 +15,18 @@ public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
     private final VolunteerRepository volunteerRepository;
     private final AuthorityRepository authorityRepository;
     private final UserRepository userRepository;
+    private final TeamLeaderRepository teamLeaderRepository;
     private final PasswordEncoder passwordEncoder;
     private final BaseJpaRepository<Volunteer, Long> repository;
 
     public VolunteerService(VolunteerRepository volunteerRepository, AuthorityRepository authorityRepository,
-                            UserRepository userRepository, PasswordEncoder passwordEncoder,
+                            UserRepository userRepository, TeamLeaderRepository teamLeaderRepository, PasswordEncoder passwordEncoder,
                             BaseJpaRepository<Volunteer, Long> repository) {
         super(repository);
         this.volunteerRepository = volunteerRepository;
         this.authorityRepository = authorityRepository;
         this.userRepository = userRepository;
+        this.teamLeaderRepository = teamLeaderRepository;
         this.passwordEncoder = passwordEncoder;
         this.repository = repository;
     }
@@ -37,6 +36,9 @@ public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
         userRepository.findByUsername(dto.getUsername()).ifPresent(account -> {
             throw new IllegalArgumentException("This username is already taken");
         });
+        TeamLeader teamLeader = teamLeaderRepository.findById(dto.getTeamLeaderId()).orElseThrow(
+                () -> new CustomNotFoundException("Team leader not found")
+        );
         User user = new User();
         user.setUsername(dto.getUsername());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -53,6 +55,7 @@ public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
         volunteer.setUserId(user.getId());
         volunteer.setUser(user);
         volunteer = dto.toEntity(Optional.of(volunteer));
+        volunteer.setTeamLeader(teamLeader);
         volunteer = volunteerRepository.save(volunteer);
         return volunteer;
     }

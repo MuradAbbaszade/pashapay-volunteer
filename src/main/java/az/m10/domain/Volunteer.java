@@ -1,5 +1,8 @@
 package az.m10.domain;
 
+import az.m10.dto.BaseDTO;
+import az.m10.dto.TeamLeaderDTO;
+import az.m10.dto.VolunteerDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -7,13 +10,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
 @ToString
 @Entity
 @Table(name = "volunteers")
-public class Volunteer extends BaseEntity {
+public class Volunteer extends BaseEntity<VolunteerDTO> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,7 +52,7 @@ public class Volunteer extends BaseEntity {
     @Column(name = "address", length = 100)
     private String address;
 
-    private boolean formStatus;
+    private Boolean formStatus;
 
     @Column(name = "user_id", nullable = false)
     private Long userId;
@@ -60,12 +64,34 @@ public class Volunteer extends BaseEntity {
 
     @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL, orphanRemoval = true,
             fetch = FetchType.EAGER)
-    @JsonIgnore
     @ToString.Exclude
     private List<Reservation> reservations;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "team_leader_id", nullable = false)
+    private TeamLeader teamLeader;
 
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDate.now();
+    }
+
+    @Override
+    public VolunteerDTO toDto() {
+        VolunteerDTO dto = new VolunteerDTO();
+        dto.setId(this.getId());
+        dto.setUsername(this.getUser().getUsername());
+        dto.setName(this.name);
+        dto.setSurname(this.surname);
+        dto.setPhoneNumber(this.phoneNumber);
+        dto.setFinCode(this.finCode);
+        dto.setDateOfBirth(this.dateOfBirth);
+        dto.setDateOfEmployment(this.dateOfEmployment);
+        dto.setDateOfResignation(this.dateOfResignation);
+        dto.setUniversity(this.university);
+        dto.setAddress(this.address);
+        dto.setFormStatus(this.formStatus);
+        dto.setTeamLeaderId(this.teamLeader.getId());
+        return dto;
     }
 }

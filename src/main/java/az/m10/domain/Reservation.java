@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @ToString
 @Entity
 @Table(name = "reservations")
-public class Reservation extends BaseEntity {
+public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

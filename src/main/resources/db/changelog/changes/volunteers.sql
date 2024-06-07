@@ -12,5 +12,7 @@ CREATE TABLE `volunteers` (
                               `university` VARCHAR(100),
                               `address` VARCHAR(100),
                               `form_status` BOOL,
-                              FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+                              `team_leader_id` BIGINT,
+                              FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+                              FOREIGN KEY (`team_leader_id`) REFERENCES `team_leaders` (`id`)
 );

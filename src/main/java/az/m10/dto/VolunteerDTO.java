@@ -1,10 +1,12 @@
 package az.m10.dto;
 
+import az.m10.domain.Location;
 import az.m10.domain.User;
 import az.m10.domain.Volunteer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,7 +18,7 @@ import java.util.Optional;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class VolunteerDTO extends BaseDTO<Volunteer>{
+public class VolunteerDTO extends BaseDTO<Volunteer> {
     private Long id;
 
     @NotEmpty
@@ -56,7 +58,6 @@ public class VolunteerDTO extends BaseDTO<Volunteer>{
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateOfResignation;
 
-    @NotEmpty
     @Size(max = 100)
     private String university;
 
@@ -66,6 +67,9 @@ public class VolunteerDTO extends BaseDTO<Volunteer>{
 
     @NotNull
     private Boolean formStatus;
+
+    @NotNull
+    private Long teamLeaderId;
 
     @JsonIgnore
     private Long userId;

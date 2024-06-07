@@ -4,6 +4,7 @@ import az.m10.domain.Location;
 import az.m10.domain.Reservation;
 import az.m10.dto.LocationDTO;
 import az.m10.dto.LocationRequestDTO;
+import az.m10.exception.CustomNotFoundException;
 import az.m10.repository.*;
 
 import java.time.LocalDate;
@@ -41,7 +42,9 @@ public class LocationService extends GenericService<Location, LocationDTO> {
     }
 
     public boolean checkLocationIsAvailable(LocationRequestDTO locationRequestDTO, Long locationId) {
-        Location location = findById(locationId);
+        Location location = locationRepository.findById(locationId).orElseThrow(
+                () -> new CustomNotFoundException("Location not found")
+        );
         List<Reservation> reservations = new ArrayList<>();
         LocalTime currentReservationStartTime = LocalTime.parse(locationRequestDTO.getReservationTime());
         LocalTime currentReservationEndTime = LocalTime.parse(locationRequestDTO.getReservationTime()).

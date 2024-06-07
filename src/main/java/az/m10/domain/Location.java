@@ -1,5 +1,7 @@
 package az.m10.domain;
 
+import az.m10.dto.LocationDTO;
+import az.m10.dto.VolunteerDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,13 +9,14 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
 @ToString
 @Entity
 @Table(name = "locations")
-public class Location extends BaseEntity{
+public class Location extends BaseEntity<LocationDTO> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,7 +39,18 @@ public class Location extends BaseEntity{
     private Integer capacity;
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     @ToString.Exclude
     private List<Reservation> reservations;
+
+    @Override
+    public LocationDTO toDto() {
+        LocationDTO dto = new LocationDTO();
+        dto.setId(this.id);
+        dto.setCapacity(this.capacity);
+        dto.setDesc(this.desc);
+        dto.setTarget(this.target);
+        dto.setDistrict(this.district);
+        dto.setMarket(this.market);
+        return dto;
+    }
 }

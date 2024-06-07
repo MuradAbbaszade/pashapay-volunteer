@@ -10,7 +10,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "authorities")
-public class Authority extends BaseEntity implements GrantedAuthority {
+public class Authority implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
