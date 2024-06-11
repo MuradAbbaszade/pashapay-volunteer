@@ -42,6 +42,9 @@ public class ReservationService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String reservationTime = azerbaijanTime.plusHours(1).format(formatter);
 
+        if (volunteerHasActiveReservation(user, LocalTime.parse(reservationTime)))
+            throw new IllegalArgumentException("Volunteer has active reservation");
+
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
         );
@@ -70,6 +73,9 @@ public class ReservationService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String reservationTime = azerbaijanTime.format(formatter);
 
+        if (volunteerHasActiveReservation(user, LocalTime.parse(reservationTime)))
+            throw new IllegalArgumentException("Volunteer has active reservation");
+
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
         );
@@ -92,14 +98,14 @@ public class ReservationService {
         return null;
     }
 
-    public boolean approveReservation(Long reservationId, User user){
+    public boolean approveReservation(Long reservationId, User user) {
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
         );
         Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(
                 () -> new CustomNotFoundException("Reservation not found")
         );
-        if (reservation.getStatus().equals(ReservationStatus.WAITING_FOR_APPROVE)){
+        if (reservation.getStatus().equals(ReservationStatus.WAITING_FOR_APPROVE)) {
             reservation.setStatus(ReservationStatus.APPROVED);
         }
         reservationRepository.save(reservation);
@@ -146,6 +152,19 @@ public class ReservationService {
         return reservationRepository.findById(id).orElseThrow(
                 () -> new CustomNotFoundException("Reservation not found")
         );
+    }
+
+    public boolean volunteerHasActiveReservation(User user, LocalTime reservationTime) {
+        Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
+                () -> new CustomNotFoundException("Volunteer not found")
+        );
+        List<Reservation> reservations = reservationRepository.findAllByVolunteer(volunteer);
+        for (Reservation reservation : reservations) {
+            if (reservation.getCreatedAt().isEqual(LocalDate.now()) && reservation.getEndTime().isAfter(reservationTime)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Reservation> findExpiredReservations() {

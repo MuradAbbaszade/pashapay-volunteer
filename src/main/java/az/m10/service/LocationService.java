@@ -58,7 +58,6 @@ public class LocationService extends GenericService<Location, LocationDTO> {
                 }
             }
         }
-        System.out.println(reservations.size());
         return location.getCapacity() > reservations.size();
     }
 }
