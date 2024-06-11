@@ -40,7 +40,7 @@ public class ReservationService {
         ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
         ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        String reservationTime = azerbaijanTime.format(formatter);
+        String reservationTime = azerbaijanTime.plusHours(1).format(formatter);
 
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
@@ -54,7 +54,7 @@ public class ReservationService {
         Reservation reservation = new Reservation();
         reservation.setVolunteer(volunteer);
         reservation.setLocation(location);
-        reservation.setStartTime(LocalTime.parse(reservationTime).plusHours(1));
+        reservation.setStartTime(LocalTime.parse(reservationTime));
         reservation.setEndTime(LocalTime.parse(reservationTime).plusHours(dto.getRange()));
         reservation.setStatus(ReservationStatus.WAITING_FOR_APPROVE);
         if (isAvailable) {
