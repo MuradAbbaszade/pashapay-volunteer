@@ -17,16 +17,16 @@ import java.util.List;
 @RestController
 public abstract class GenericController<T extends BaseEntity, E extends BaseDTO> {
 
-    GenericService<T,E> genericService;
+    GenericService<T, E> genericService;
 
     public GenericController(GenericService<T, E> genericService) {
         this.genericService = genericService;
     }
 
     @PostMapping
-    public ResponseEntity<T> add(@RequestBody @Valid E dto) throws IOException {
-        T t = genericService.add(dto);
-        return ResponseEntity.ok(t);
+    public ResponseEntity<E> add(@RequestBody @Valid E dto) throws IOException {
+        E e = genericService.add(dto);
+        return ResponseEntity.ok(e);
     }
 
     @DeleteMapping("{id}")
@@ -49,9 +49,9 @@ public abstract class GenericController<T extends BaseEntity, E extends BaseDTO>
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<T> update(@PathVariable Long id, @Valid @RequestBody E dto) {
-        T t = genericService.update(id, dto);
-        return ResponseEntity.ok(t);
+    public ResponseEntity<E> update(@PathVariable Long id, @Valid @RequestBody E dto) {
+        E e = genericService.update(id, dto);
+        return ResponseEntity.ok(e);
     }
 
     @GetMapping

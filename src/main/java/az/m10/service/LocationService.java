@@ -32,9 +32,9 @@ public class LocationService extends GenericService<Location, LocationDTO> {
     }
 
     @Override
-    public Location add(LocationDTO dto) {
+    public LocationDTO add(LocationDTO dto) {
         Location location = dto.toEntity(Optional.of(new Location()));
-        return locationRepository.save(location);
+        return locationRepository.save(location).toDto();
     }
 
     public List<Location> findBySubwayDistrictMarket(String subway, String market, String district) {

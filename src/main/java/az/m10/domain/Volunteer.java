@@ -92,6 +92,7 @@ public class Volunteer extends BaseEntity<VolunteerDTO> {
         dto.setAddress(this.address);
         dto.setFormStatus(this.formStatus);
         dto.setTeamLeaderId(this.teamLeader.getId());
+        dto.setCreatedAt(this.createdAt);
         return dto;
     }
 }

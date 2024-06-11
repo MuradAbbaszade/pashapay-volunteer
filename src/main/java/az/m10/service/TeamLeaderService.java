@@ -48,7 +48,7 @@ public class TeamLeaderService extends GenericService<TeamLeader, TeamLeaderDTO>
 
     @Override
     @Transactional
-    public TeamLeader add(TeamLeaderDTO dto) {
+    public TeamLeaderDTO add(TeamLeaderDTO dto) {
         userRepository.findByUsername(dto.getUsername()).ifPresent(account -> {
             throw new IllegalArgumentException("This username is already taken");
         });
@@ -69,6 +69,6 @@ public class TeamLeaderService extends GenericService<TeamLeader, TeamLeaderDTO>
         teamLeader.setUser(user);
         teamLeader = dto.toEntity(Optional.of(teamLeader));
         teamLeader = teamLeaderRepository.save(teamLeader);
-        return teamLeader;
+        return teamLeader.toDto();
     }
 }

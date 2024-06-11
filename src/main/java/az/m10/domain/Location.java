@@ -51,6 +51,7 @@ public class Location extends BaseEntity<LocationDTO> {
         dto.setTarget(this.target);
         dto.setDistrict(this.district);
         dto.setMarket(this.market);
+        dto.setSubway(this.subway);
         return dto;
     }
 }

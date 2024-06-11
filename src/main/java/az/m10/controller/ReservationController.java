@@ -76,6 +76,6 @@ public class ReservationController {
             Principal principal) {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         boolean approved = reservationService.approveReservation(reservationId, user);
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok(approved);
     }
 }

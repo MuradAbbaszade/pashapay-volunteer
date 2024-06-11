@@ -1,6 +1,7 @@
 package az.m10.dto;
 
 import az.m10.domain.TeamLeader;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -20,6 +21,7 @@ public class TeamLeaderDTO extends BaseDTO<TeamLeader> {
     private String username;
 
     @Size(max = 100)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @NotEmpty

@@ -1,10 +1,10 @@
 package az.m10.dto;
 
-import az.m10.domain.Location;
 import az.m10.domain.User;
 import az.m10.domain.Volunteer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -26,6 +26,7 @@ public class VolunteerDTO extends BaseDTO<Volunteer> {
     private String username;
 
     @Size(max = 100)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @NotEmpty
@@ -36,7 +37,7 @@ public class VolunteerDTO extends BaseDTO<Volunteer> {
     @Size(max = 100)
     private String surname;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate createdAt;
 
     @NotEmpty

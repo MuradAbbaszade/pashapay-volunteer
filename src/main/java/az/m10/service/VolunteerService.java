@@ -32,7 +32,7 @@ public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
     }
 
     @Transactional
-    public Volunteer add(VolunteerDTO dto) {
+    public VolunteerDTO add(VolunteerDTO dto) {
         userRepository.findByUsername(dto.getUsername()).ifPresent(account -> {
             throw new IllegalArgumentException("This username is already taken");
         });
@@ -57,11 +57,11 @@ public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
         volunteer = dto.toEntity(Optional.of(volunteer));
         volunteer.setTeamLeader(teamLeader);
         volunteer = volunteerRepository.save(volunteer);
-        return volunteer;
+        return volunteer.toDto();
     }
 
     @Override
-    public Volunteer update(Long id, VolunteerDTO dto) {
+    public VolunteerDTO update(Long id, VolunteerDTO dto) {
         Volunteer volunteer = volunteerRepository.findById(id).orElseThrow(
                 () -> new CustomNotFoundException("Entity not found.")
         );
@@ -69,6 +69,6 @@ public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
         user.setUsername(dto.getUsername());
         volunteer = dto.toEntity(Optional.of(volunteer));
         volunteerRepository.save(volunteer);
-        return volunteer;
+        return volunteer.toDto();
     }
 }

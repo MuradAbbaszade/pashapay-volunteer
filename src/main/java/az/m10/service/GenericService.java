@@ -20,15 +20,14 @@ public abstract class GenericService<T extends BaseEntity, E extends BaseDTO> {
     }
 
     @Transactional
-    public abstract T add(E dto);
+    public abstract E add(E dto);
 
-    public T update(Long id, E dto) {
+    public E update(Long id, E dto) {
         T t = baseJpaRepository.findById(id).orElseThrow(
                 () -> new CustomNotFoundException("Entity not found.")
         );
         t = (T) dto.toEntity(Optional.of(t));
-        baseJpaRepository.save(t);
-        return t;
+        return (E) baseJpaRepository.save(t).toDto();
     }
 
     public E findById(Long id) {
