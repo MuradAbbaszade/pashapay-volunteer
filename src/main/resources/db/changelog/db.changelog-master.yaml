@@ -17,3 +17,7 @@ databaseChangeLog:
 #      file: classpath:/db/changelog/changes/add_reservation_status_change_trigger.sql
 #  - include:
 #      file: classpath:/db/changelog/changes/team_leaders.sql
+  - include:
+      file: classpath:/db/changelog/changes/remove_reservation_status_change_trigger.sql
+  - include:
+      file: classpath:/db/changelog/changes/create_index_for_end_time_and_status.sql
