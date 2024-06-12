@@ -88,8 +88,8 @@ public class ReservationService {
         Reservation reservation = new Reservation();
         reservation.setVolunteer(volunteer);
         reservation.setLocation(location);
-        reservation.setStartTime(LocalTime.now());
-        reservation.setEndTime(LocalTime.now().plusHours(dto.getRange()));
+        reservation.setStartTime(LocalTime.parse(reservationTime));
+        reservation.setEndTime(LocalTime.parse(reservationTime).plusHours(dto.getRange()));
         reservation.setStatus(ReservationStatus.APPROVED);
         if (isAvailable) {
             reservationRepository.save(reservation);

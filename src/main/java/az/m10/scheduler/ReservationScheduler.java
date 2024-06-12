@@ -1,6 +1,5 @@
 package az.m10.scheduler;
 
-
 import az.m10.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
