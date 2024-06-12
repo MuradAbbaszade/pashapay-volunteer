@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 public class SignInDTO {
     private String username;
     private String password;
+    private String fcmToken;
 }

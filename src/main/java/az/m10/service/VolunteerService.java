@@ -71,4 +71,12 @@ public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
         volunteerRepository.save(volunteer);
         return volunteer.toDto();
     }
+
+    public User saveFcmToken(String username, String fcmToken) {
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new CustomNotFoundException("User not found")
+        );
+        user.setFcmToken(fcmToken);
+        return userRepository.save(user);
+    }
 }

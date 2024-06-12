@@ -2,7 +2,6 @@ package az.m10.controller;
 
 import az.m10.auth.UserDetailsService;
 import az.m10.domain.User;
-import az.m10.domain.enums.ReservationStatus;
 import az.m10.dto.ReservationRequestDTO;
 import az.m10.dto.ReservationResponse;
 import az.m10.dto.ReservationResponseDTO;

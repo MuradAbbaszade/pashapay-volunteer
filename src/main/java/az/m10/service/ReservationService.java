@@ -166,8 +166,4 @@ public class ReservationService {
         }
         return false;
     }
-
-    public List<Reservation> findExpiredReservations() {
-        return reservationRepository.findExpiredReservations();
-    }
 }

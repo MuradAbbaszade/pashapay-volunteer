@@ -3,6 +3,7 @@ package az.m10.controller;
 import az.m10.dto.JwtResponse;
 import az.m10.dto.SignInDTO;
 import az.m10.dto.TokenRefreshRequest;
+import az.m10.service.VolunteerService;
 import az.m10.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +21,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
+    private final VolunteerService volunteerService;
 
     @PostMapping("/sign-in")
     public JwtResponse signIn(@RequestBody SignInDTO signInDTO) {
@@ -29,10 +31,12 @@ public class AuthController {
                         signInDTO.getPassword()
                 )
         );
+        if (signInDTO.getFcmToken() != null)
+            volunteerService.saveFcmToken(signInDTO.getUsername(), signInDTO.getFcmToken());
         String refreshToken = jwtUtil.generateRefreshTokenFromUsername(signInDTO.getUsername());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = jwtUtil.generateToken(authentication);
-        return new JwtResponse(token,refreshToken);
+        return new JwtResponse(token, refreshToken);
     }
 
     @PostMapping("/refresh-token")
@@ -40,7 +44,7 @@ public class AuthController {
         String requestRefreshToken = request.getRefreshToken();
         jwtUtil.validateToken(requestRefreshToken);
 
-        String username=jwtUtil.extractClaims(request.getRefreshToken()).getSubject();
+        String username = jwtUtil.extractClaims(request.getRefreshToken()).getSubject();
         String token = jwtUtil.generateTokenFromUsername(username);
         requestRefreshToken = jwtUtil.generateRefreshTokenFromUsername(username);
         return new JwtResponse(token, requestRefreshToken);

@@ -16,11 +16,14 @@ public interface ReservationRepository extends BaseJpaRepository<Reservation, Lo
 
     List<Reservation> findAllByVolunteer(Volunteer volunteer);
 
-    @Query("SELECT r FROM Reservation r WHERE r.endTime < CURRENT_TIME AND r.status = 'WAITING_FOR_APPROVE'")
+    @Query("SELECT r FROM Reservation r WHERE r.status = 'WAITING_FOR_APPROVE' AND ADDTIME(r.endTime, '00:15:00') < CURRENT_TIMESTAMP")
     List<Reservation> findExpiredReservations();
 
     @Modifying
     @Transactional
     @Query("UPDATE Reservation r SET r.status = 'DECLINED' WHERE r.status = 'WAITING_FOR_APPROVE' AND ADDTIME(r.endTime, '00:15:00') < CURRENT_TIMESTAMP")
     void updateReservationStatus();
+
+    @Query(value = "SELECT * FROM reservations WHERE ABS(TIMESTAMPDIFF(MINUTE, end_time, CURRENT_TIME())) = 30 AND status = 'APPROVED'", nativeQuery = true)
+    List<Reservation> findReservationsWith30MinuteDifference();
 }
