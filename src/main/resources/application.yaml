@@ -46,7 +46,7 @@ jwt:
     string: Authorization
 
 app:
-  firebase-configuration-file: m10volunteer-firebase-adminsdk-c82n2-b9e30e6ca6.json
+  firebase-configuration-file: m10volunteer-7de76-firebase-adminsdk-koso1-aafdb3b508.json
 
 #server:
 #  port: 443
