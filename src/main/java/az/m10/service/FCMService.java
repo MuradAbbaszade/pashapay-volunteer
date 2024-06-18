@@ -9,12 +9,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Service
 public class FCMService {
     private Logger logger = LoggerFactory.getLogger(FCMService.class);
 
+
+    public void sendDataMessage(String fcmToken, Map<String, String> data) {
+        Message message = Message.builder()
+                .putAllData(data)
+                .setToken(fcmToken)
+                .build();
+
+        try {
+            FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void sendMessageToToken(NotificationRequest request)
             throws InterruptedException, ExecutionException {
