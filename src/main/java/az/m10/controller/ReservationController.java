@@ -39,14 +39,14 @@ public class ReservationController {
     }
 
     @GetMapping("/initial")
-    public List<ReservationInitialResponse> initialFindAll(Principal principal) {
+    public List<ReservationResponse> initialFindAll(Principal principal) {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         return reservationService.initialFindAll(user);
     }
 
     @GetMapping("{id}")
     public ReservationResponse findById(@PathVariable Long id) {
-        return new ReservationResponse(reservationService.findById(id));
+        return reservationService.findById(id);
     }
 
     @PostMapping

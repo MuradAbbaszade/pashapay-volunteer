@@ -62,7 +62,10 @@ public class ReservationService {
         reservation.setStatus(ReservationStatus.WAITING_FOR_APPROVE);
         if (isAvailable) {
             reservationRepository.save(reservation);
-            return new ReservationResponse(reservation);
+            ReservationResponse reservationResponse = new ReservationResponse(reservation);
+            setMinute15(reservationResponse, reservation);
+            setMinute30(reservationResponse, reservation);
+            return reservationResponse;
         }
         return null;
     }
@@ -93,7 +96,10 @@ public class ReservationService {
         reservation.setStatus(ReservationStatus.APPROVED);
         if (isAvailable) {
             reservationRepository.save(reservation);
-            return new ReservationResponse(reservation);
+            ReservationResponse reservationResponse = new ReservationResponse(reservation);
+            setMinute15(reservationResponse, reservation);
+            setMinute30(reservationResponse, reservation);
+            return reservationResponse;
         }
         return null;
     }
@@ -130,7 +136,10 @@ public class ReservationService {
         reservation.setStatus(ReservationStatus.APPROVED);
         if (isAvailable) {
             reservationRepository.save(reservation);
-            return new ReservationResponse(reservation);
+            ReservationResponse reservationResponse = new ReservationResponse(reservation);
+            setMinute15(reservationResponse, reservation);
+            setMinute30(reservationResponse, reservation);
+            return reservationResponse;
         }
         return null;
     }
@@ -148,10 +157,14 @@ public class ReservationService {
         return reservations;
     }
 
-    public Reservation findById(Long id) {
-        return reservationRepository.findById(id).orElseThrow(
+    public ReservationResponse findById(Long id) {
+        Reservation reservation = reservationRepository.findById(id).orElseThrow(
                 () -> new CustomNotFoundException("Reservation not found")
         );
+        ReservationResponse reservationResponse = new ReservationResponse(reservation);
+        setMinute15(reservationResponse, reservation);
+        setMinute30(reservationResponse, reservation);
+        return reservationResponse;
     }
 
     public boolean volunteerHasActiveReservation(User user, LocalTime reservationTime) {
@@ -167,35 +180,45 @@ public class ReservationService {
         return false;
     }
 
-    public List<ReservationInitialResponse> initialFindAll(User user) {
+    public List<ReservationResponse> initialFindAll(User user) {
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
         );
-        List<ReservationInitialResponse> reservationInitialResponses = new ArrayList<>();
+        List<ReservationResponse> reservationResponses = new ArrayList<>();
         for (Reservation reservation : reservationRepository.findAllByVolunteer(volunteer)) {
             if (reservation.getCreatedAt().equals(LocalDate.now()) && reservation.getEndTime().isAfter(LocalTime.now())) {
-                ReservationInitialResponse reservationInitialResponse = new ReservationInitialResponse();
-                reservationInitialResponse.setReservationId(reservation.getId());
-                reservationInitialResponse.setDescription(reservation.getLocation().getDesc());
-                reservationInitialResponse.setMarket(reservation.getLocation().getMarket());
-                reservationInitialResponse.setTarget(reservation.getLocation().getTarget());
-                reservationInitialResponse.setEndTime(reservation.getEndTime().toString());
-                reservationInitialResponse.setStartTime(reservation.getStartTime().toString());
-                LocalTime startTime = reservation.getStartTime();
-                LocalTime now = LocalTime.now();
-                if (reservation.getStatus() == ReservationStatus.WAITING_FOR_APPROVE &&
-                        now.isAfter(startTime) && now.isBefore(startTime.plusMinutes(15))) {
-                    reservationInitialResponse.setMinute15(true);
-                } else reservationInitialResponse.setMinute15(false);
-
-                LocalTime endTime = reservation.getEndTime();
-                if (reservation.getStatus() != ReservationStatus.APPROVED &&
-                        now.isAfter(endTime.minusMinutes(30)) && now.isBefore(endTime)) {
-                    reservationInitialResponse.setMinute30(true);
-                } else reservationInitialResponse.setMinute30(false);
-                reservationInitialResponses.add(reservationInitialResponse);
+                ReservationResponse reservationResponse = new ReservationResponse();
+                reservationResponse.setReservationId(reservation.getId());
+                reservationResponse.setDescription(reservation.getLocation().getDesc());
+                reservationResponse.setMarket(reservation.getLocation().getMarket());
+                reservationResponse.setTarget(reservation.getLocation().getTarget());
+                reservationResponse.setEndTime(reservation.getEndTime().toString());
+                reservationResponse.setStartTime(reservation.getStartTime().toString());
+                setMinute15(reservationResponse, reservation);
+                setMinute30(reservationResponse, reservation);
+                reservationResponses.add(reservationResponse);
             }
         }
-        return reservationInitialResponses;
+        return reservationResponses;
+    }
+
+    public ReservationResponse setMinute15(ReservationResponse reservationResponse, Reservation reservation) {
+        LocalTime startTime = reservation.getStartTime();
+        LocalTime now = LocalTime.now();
+        if (reservation.getStatus() == ReservationStatus.WAITING_FOR_APPROVE &&
+                now.isAfter(startTime) && now.isBefore(startTime.plusMinutes(15))) {
+            reservationResponse.setMinute15(true);
+        } else reservationResponse.setMinute15(false);
+        return reservationResponse;
+    }
+
+    public ReservationResponse setMinute30(ReservationResponse reservationResponse, Reservation reservation) {
+        LocalTime now = LocalTime.now();
+        LocalTime endTime = reservation.getEndTime();
+        if (reservation.getStatus() != ReservationStatus.APPROVED &&
+                now.isAfter(endTime.minusMinutes(30)) && now.isBefore(endTime)) {
+            reservationResponse.setMinute30(true);
+        } else reservationResponse.setMinute30(false);
+        return reservationResponse;
     }
 }

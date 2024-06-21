@@ -21,6 +21,10 @@ public class ReservationResponse {
 
     private String endTime;
 
+    private Boolean minute15;
+
+    private Boolean minute30;
+
     public ReservationResponse(Reservation reservation) {
         this.reservationId = reservation.getId();
         this.description = reservation.getLocation().getDesc();
