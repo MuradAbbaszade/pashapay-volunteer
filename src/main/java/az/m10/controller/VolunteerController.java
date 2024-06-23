@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/admin/volunteer")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:3000", "*"})
 public class VolunteerController extends GenericController<Volunteer, VolunteerDTO> {
 
     public VolunteerController(GenericService<Volunteer, VolunteerDTO> genericService) {

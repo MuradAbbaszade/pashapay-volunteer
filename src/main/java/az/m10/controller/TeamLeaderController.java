@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/admin/team-leader")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:3000", "*"})
 public class TeamLeaderController extends GenericController<TeamLeader, TeamLeaderDTO> {
 
     private final TeamLeaderService teamLeaderService;

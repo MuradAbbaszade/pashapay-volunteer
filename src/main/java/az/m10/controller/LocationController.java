@@ -9,7 +9,6 @@ import az.m10.dto.LocationResponseDTO;
 import az.m10.dto.ReservationTimeResponse;
 import az.m10.service.GenericService;
 import az.m10.service.LocationService;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/location")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:3000", "*"})
 public class LocationController extends GenericController<Location, LocationDTO> {
 
     private LocationService locationService;
