@@ -206,7 +206,9 @@ public class ReservationService {
 
     public ReservationResponse setMinute15(ReservationResponse reservationResponse, Reservation reservation) {
         LocalTime startTime = reservation.getStartTime();
-        LocalTime now = LocalTime.now();
+        ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
+        ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
+        LocalTime now = azerbaijanTime.toLocalTime();
         if (reservation.getStatus() == ReservationStatus.WAITING_FOR_APPROVE &&
                 now.isAfter(startTime) && now.isBefore(startTime.plusMinutes(15))) {
             reservationResponse.setMinute15(true);
@@ -215,7 +217,9 @@ public class ReservationService {
     }
 
     public ReservationResponse setMinute30(ReservationResponse reservationResponse, Reservation reservation) {
-        LocalTime now = LocalTime.now();
+        ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
+        ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
+        LocalTime now = azerbaijanTime.toLocalTime();
         LocalTime endTime = reservation.getEndTime();
         if (reservation.getStatus() != ReservationStatus.APPROVED &&
                 now.isAfter(endTime.minusMinutes(30)) && now.isBefore(endTime)) {
