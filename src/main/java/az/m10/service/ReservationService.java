@@ -188,7 +188,8 @@ public class ReservationService {
         );
         List<ReservationResponse> reservationResponses = new ArrayList<>();
         for (Reservation reservation : reservationRepository.findAllByVolunteer(volunteer)) {
-            if (reservation.getCreatedAt().equals(LocalDate.now()) && reservation.getEndTime().isAfter(azerbaijanTime.toLocalTime())) {
+            if (reservation.getCreatedAt().equals(LocalDate.now()) && reservation.getEndTime().isAfter(azerbaijanTime.toLocalTime())
+                    && (reservation.getStatus().equals(ReservationStatus.WAITING_FOR_APPROVE) || reservation.getStatus().equals(ReservationStatus.APPROVED))) {
                 ReservationResponse reservationResponse = new ReservationResponse();
                 reservationResponse.setReservationId(reservation.getId());
                 reservationResponse.setDescription(reservation.getLocation().getDesc());
@@ -221,7 +222,7 @@ public class ReservationService {
         ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
         LocalTime now = azerbaijanTime.toLocalTime();
         LocalTime endTime = reservation.getEndTime();
-        if (reservation.getStatus() != ReservationStatus.APPROVED &&
+        if (reservation.getStatus() == ReservationStatus.APPROVED &&
                 now.isAfter(endTime.minusMinutes(30)) && now.isBefore(endTime)) {
             reservationResponse.setMinute30(true);
         } else reservationResponse.setMinute30(false);
