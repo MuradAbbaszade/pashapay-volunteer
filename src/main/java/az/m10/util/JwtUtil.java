@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class JwtUtil {
     @Value("${jwt.token.validity}")
-    public long TOKEN_VALIDITY;
+    public Long TOKEN_VALIDITY;
 
     @Value("${jwt.signing.key}")
     public String SIGNING_KEY;
@@ -29,7 +29,7 @@ public class JwtUtil {
     public String AUTHORITIES_KEY;
 
     @Value("${jwt.token.refresh}")
-    private Integer EXPIRE_REFRESH_DURATION;
+    private Long EXPIRE_REFRESH_DURATION;
 
     public String generateToken(Authentication authentication) {
         String authorities = authentication.getAuthorities()

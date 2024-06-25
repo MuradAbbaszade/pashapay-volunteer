@@ -35,8 +35,8 @@ spring:
 
 jwt:
   token:
-    validity: 300000
-    refresh: 600000
+    validity: 7200000
+    refresh: 2592000000
     prefix: Bearer
   signing:
     key: pashapaypashapaypashapaypashapaypashapaypashapaypashapaypashapaypashapaypashapaypashapaypashapaypashapaypashapaypashapaypashapay
