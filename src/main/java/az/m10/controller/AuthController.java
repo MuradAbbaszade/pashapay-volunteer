@@ -31,8 +31,11 @@ public class AuthController {
                         signInDTO.getPassword()
                 )
         );
-        if (signInDTO.getFcmToken() != null && !signInDTO.getFcmToken().equals("string"))
+        System.out.println(signInDTO.getFcmToken());
+        if (signInDTO.getFcmToken() != null && !signInDTO.getFcmToken().equals("string")) {
+            System.out.println(signInDTO.getFcmToken());
             volunteerService.saveFcmToken(signInDTO.getUsername(), signInDTO.getFcmToken());
+        }
         String refreshToken = jwtUtil.generateRefreshTokenFromUsername(signInDTO.getUsername());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = jwtUtil.generateToken(authentication);
