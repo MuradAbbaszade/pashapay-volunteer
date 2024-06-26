@@ -75,9 +75,7 @@ public class JwtUtil {
     }
 
     public String parseJwt(HttpServletRequest request) {
-        System.out.println(request.getHeaderNames());
         String headerAuth = request.getHeader("Authorization");
-        System.out.println("parse jwt icinde: " + headerAuth);
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
             return headerAuth.substring(7);
         }
