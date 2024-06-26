@@ -65,7 +65,7 @@ public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
         Volunteer volunteer = volunteerRepository.findById(id).orElseThrow(
                 () -> new CustomNotFoundException("Entity not found.")
         );
-        TeamLeader teamLeader = teamLeaderRepository.findById(id).orElseThrow(
+        TeamLeader teamLeader = teamLeaderRepository.findById(dto.getTeamLeaderId()).orElseThrow(
                 () -> new CustomNotFoundException("Entity not found.")
         );
         User user = volunteer.getUser();
