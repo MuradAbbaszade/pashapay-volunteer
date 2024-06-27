@@ -25,13 +25,14 @@ public class ReservationScheduler {
     public void sendNotifications() throws ExecutionException, InterruptedException {
         ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
         ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
+        System.out.println(azerbaijanTime.toLocalTime());
         //Send notification to users whose reservation declined
         List<Reservation> reservations = reservationRepository.findExpiredReservations(azerbaijanTime.toLocalTime());
         for (Reservation reservation : reservations) {
             if (reservation.getVolunteer().getUser().getFcmToken() != null) {
                 fcmService.sendMessageToToken(new NotificationRequest(
-                        "Rezervasiya bildirişi",
                         "Rezervasiya ləğvi",
+                        "Rezervasiya təsdiq olunmadığı üçün ləğv olundu",
                         "Rezervasiya təsdiq olunmadığı üçün ləğv olundu",
                         reservation.getVolunteer().getUser().getFcmToken()
                 ));
@@ -44,8 +45,8 @@ public class ReservationScheduler {
         for (Reservation reservation : reservationList) {
             if (reservation.getVolunteer().getUser().getFcmToken() != null) {
                 fcmService.sendMessageToToken(new NotificationRequest(
-                        "Rezervasiya bildirişi",
                         "Rezervasiya sonlanır",
+                        "Rezervasiya 30 dq sonra sonlanacaq",
                         "Rezervasiya 30 dq sonra sonlanacaq",
                         reservation.getVolunteer().getUser().getFcmToken()
                 ));
