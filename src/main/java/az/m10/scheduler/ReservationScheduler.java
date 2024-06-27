@@ -25,7 +25,6 @@ public class ReservationScheduler {
     public void sendNotifications() throws ExecutionException, InterruptedException {
         ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
         ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
-        System.out.println(azerbaijanTime.toLocalTime());
         //Send notification to users whose reservation declined
         List<Reservation> reservations = reservationRepository.findExpiredReservations(azerbaijanTime.toLocalTime());
         for (Reservation reservation : reservations) {
