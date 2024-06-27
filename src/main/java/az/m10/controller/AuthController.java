@@ -31,9 +31,7 @@ public class AuthController {
                         signInDTO.getPassword()
                 )
         );
-        System.out.println("fcmToken:" + signInDTO.getFcmToken());
         if (signInDTO.getFcmToken() != null && !signInDTO.getFcmToken().equals("string")) {
-            System.out.println("fcmToken:" + signInDTO.getFcmToken());
             volunteerService.saveFcmToken(signInDTO.getUsername(), signInDTO.getFcmToken());
         }
         String refreshToken = jwtUtil.generateRefreshTokenFromUsername(signInDTO.getUsername());
