@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -20,8 +23,10 @@ public class ReservationScheduler {
 
     @Scheduled(fixedRate = 60000)
     public void sendNotifications() throws ExecutionException, InterruptedException {
+        ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
+        ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
         //Send notification to users whose reservation declined
-        List<Reservation> reservations = reservationRepository.findExpiredReservations();
+        List<Reservation> reservations = reservationRepository.findExpiredReservations(azerbaijanTime.toLocalTime());
         for (Reservation reservation : reservations) {
             if (reservation.getVolunteer().getUser().getFcmToken() != null) {
                 fcmService.sendMessageToToken(new NotificationRequest(
@@ -32,10 +37,10 @@ public class ReservationScheduler {
                 ));
             }
         }
-        reservationRepository.updateReservationStatus();
+        reservationRepository.updateReservationStatus(azerbaijanTime.toLocalTime());
 
         //Send notification to users who can add time to their reservations
-        List<Reservation> reservationList = reservationRepository.findReservationsWith30MinuteDifference();
+        List<Reservation> reservationList = reservationRepository.findReservationsWith30MinuteDifference(azerbaijanTime.toLocalTime());
         for (Reservation reservation : reservationList) {
             if (reservation.getVolunteer().getUser().getFcmToken() != null) {
                 fcmService.sendMessageToToken(new NotificationRequest(
