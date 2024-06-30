@@ -9,6 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,7 +75,9 @@ public class Volunteer extends BaseEntity<VolunteerDTO> {
 
     @PrePersist
     public void prePersist() {
-        this.createdAt = LocalDate.now();
+        ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
+        ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
+        this.createdAt = azerbaijanTime.toLocalDate();
     }
 
     @Override

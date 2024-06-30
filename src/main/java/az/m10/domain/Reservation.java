@@ -8,6 +8,9 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -41,6 +44,8 @@ public class Reservation {
 
     @PrePersist
     public void prePersist() {
-        this.createdAt = LocalDate.now();
+        ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
+        ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
+        this.createdAt = azerbaijanTime.toLocalDate();
     }
 }
