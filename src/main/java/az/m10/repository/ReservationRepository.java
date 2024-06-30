@@ -26,12 +26,12 @@ public interface ReservationRepository extends BaseJpaRepository<Reservation, Lo
     @Query("UPDATE Reservation r SET r.status = 'DECLINED' WHERE r.status = 'WAITING_FOR_APPROVE' AND ADDTIME(r.startTime, '00:15:00') < :currentTime")
     void updateReservationStatus(@Param("currentTime") LocalTime currentTime);
 
-    @Query(value = "SELECT * FROM reservations WHERE ABS(TIMESTAMPDIFF(MINUTE, end_time, :currentTime)) = 30 AND status = 'APPROVED'", nativeQuery = true)
+    @Query(value = "SELECT * FROM reservations WHERE TIMESTAMPDIFF(MINUTE, end_time, :currentTime) = 30 AND status = 'APPROVED'", nativeQuery = true)
     List<Reservation> findReservationsWith30MinuteDifference(@Param("currentTime") LocalTime currentTime);
 
-    @Query(value = "SELECT * FROM reservations WHERE ABS(TIMESTAMPDIFF(MINUTE, start_time, :currentTime)) = 0 AND status = 'WAITING_FOR_APPROVE'", nativeQuery = true)
+    @Query(value = "SELECT * FROM reservations WHERE start_time = :currentTime AND status = 'WAITING_FOR_APPROVE'", nativeQuery = true)
     List<Reservation> findStartedReservations(@Param(("currentTime")) LocalTime currentTime);
 
-    @Query(value = "SELECT * FROM reservations WHERE ABS(TIMESTAMPDIFF(MINUTE, end_time, :currentTime)) = 0 AND status = 'APPROVED'", nativeQuery = true)
+    @Query(value = "SELECT * FROM reservations WHERE end_time = :currentTime AND status = 'APPROVED'", nativeQuery = true)
     List<Reservation> findEndedReservations(@Param(("currentTime")) LocalTime currentTime);
 }
