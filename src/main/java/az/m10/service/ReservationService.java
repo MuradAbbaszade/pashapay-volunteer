@@ -119,21 +119,16 @@ public class ReservationService {
     }
 
     public ReservationResponse addTimeToReservation(Long reservationId, User user) {
-        Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
+        volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
         );
-        Reservation oldReservation = reservationRepository.findById(reservationId).orElseThrow(
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(
                 () -> new CustomNotFoundException("Reservation not found")
         );
         boolean isAvailable = locationService.checkLocationIsAvailable(
-                new LocationRequestDTO(null, null, null, 1, oldReservation.getEndTime().toString()), oldReservation.getLocation().getId()
+                new LocationRequestDTO(null, null, null, 1, reservation.getEndTime().toString()), reservation.getLocation().getId()
         );
-        Reservation reservation = new Reservation();
-        reservation.setVolunteer(volunteer);
-        reservation.setLocation(oldReservation.getLocation());
-        reservation.setStartTime(oldReservation.getEndTime());
-        reservation.setEndTime(oldReservation.getEndTime().plusHours(1));
-        reservation.setStatus(ReservationStatus.APPROVED);
+        reservation.setEndTime(reservation.getEndTime().plusHours(1));
         if (isAvailable) {
             reservationRepository.save(reservation);
             ReservationResponse reservationResponse = new ReservationResponse(reservation);
