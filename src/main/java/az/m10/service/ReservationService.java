@@ -183,12 +183,13 @@ public class ReservationService {
     public List<ReservationResponse> initialFindAll(User user) {
         ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
         ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
+        LocalDate azerbaijanTimeLocalDate = azerbaijanTime.toLocalDate();
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
         );
         List<ReservationResponse> reservationResponses = new ArrayList<>();
         for (Reservation reservation : reservationRepository.findAllByVolunteer(volunteer)) {
-            if (reservation.getCreatedAt().equals(LocalDate.now()) && reservation.getEndTime().isAfter(azerbaijanTime.toLocalTime())
+            if (reservation.getCreatedAt().equals(azerbaijanTimeLocalDate) && reservation.getEndTime().isAfter(azerbaijanTime.toLocalTime())
                     && (reservation.getStatus().equals(ReservationStatus.WAITING_FOR_APPROVE) || reservation.getStatus().equals(ReservationStatus.APPROVED))) {
                 ReservationResponse reservationResponse = new ReservationResponse();
                 reservationResponse.setReservationId(reservation.getId());
