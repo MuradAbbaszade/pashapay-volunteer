@@ -105,7 +105,7 @@ public class ReservationService {
     }
 
     public boolean approveReservation(Long reservationId, User user) {
-        Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
+        volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
         );
         Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(
@@ -140,12 +140,16 @@ public class ReservationService {
     }
 
     public List<ReservationResponseDTO> findAll(User user) {
+        ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
+        ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
+        LocalDate azerbaijanTimeLocalDate = azerbaijanTime.toLocalDate();
+
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
         );
         List<ReservationResponseDTO> reservations = new ArrayList<>();
         for (Reservation reservation : reservationRepository.findAllByVolunteer(volunteer)) {
-            if (reservation.getCreatedAt().equals(LocalDate.now()) && reservation.getEndTime().isAfter(LocalTime.now())) {
+            if (reservation.getCreatedAt().equals(azerbaijanTimeLocalDate) && reservation.getEndTime().isAfter(azerbaijanTime.toLocalTime())) {
                 reservations.add(new ReservationResponseDTO(reservation));
             }
         }
@@ -163,12 +167,16 @@ public class ReservationService {
     }
 
     public boolean volunteerHasActiveReservation(User user, LocalTime reservationTime) {
+        ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
+        ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
+        LocalDate azerbaijanTimeLocalDate = azerbaijanTime.toLocalDate();
+
         Volunteer volunteer = volunteerRepository.findByUser(user).orElseThrow(
                 () -> new CustomNotFoundException("Volunteer not found")
         );
         List<Reservation> reservations = reservationRepository.findAllByVolunteer(volunteer);
         for (Reservation reservation : reservations) {
-            if (reservation.getCreatedAt().isEqual(LocalDate.now()) && reservation.getEndTime().isAfter(reservationTime)) {
+            if (reservation.getCreatedAt().isEqual(azerbaijanTimeLocalDate) && reservation.getEndTime().isAfter(reservationTime)) {
                 return true;
             }
         }

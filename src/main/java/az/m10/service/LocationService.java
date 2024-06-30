@@ -9,6 +9,8 @@ import az.m10.repository.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -42,6 +44,10 @@ public class LocationService extends GenericService<Location, LocationDTO> {
     }
 
     public boolean checkLocationIsAvailable(LocationRequestDTO locationRequestDTO, Long locationId) {
+        ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
+        ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
+        LocalDate azerbaijanTimeLocalDate = azerbaijanTime.toLocalDate();
+
         Location location = locationRepository.findById(locationId).orElseThrow(
                 () -> new CustomNotFoundException("Location not found")
         );
@@ -50,7 +56,7 @@ public class LocationService extends GenericService<Location, LocationDTO> {
         LocalTime currentReservationEndTime = LocalTime.parse(locationRequestDTO.getReservationTime()).
                 plusHours(locationRequestDTO.getRange());
         for (Reservation reservation : reservationRepository.findAllByLocation(location)) {
-            if (reservation.getCreatedAt().equals(LocalDate.now())) {
+            if (reservation.getCreatedAt().equals(azerbaijanTimeLocalDate)) {
                 LocalTime reservationStartTime = reservation.getStartTime();
                 LocalTime reservationEndTime = reservation.getEndTime();
                 if (reservationEndTime.isAfter(currentReservationStartTime) && reservationStartTime.isBefore(currentReservationEndTime)) {
