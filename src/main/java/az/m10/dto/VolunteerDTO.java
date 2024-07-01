@@ -78,7 +78,6 @@ public class VolunteerDTO extends BaseDTO<Volunteer> {
     @JsonIgnore
     private User user;
 
-    @NotEmpty
     private String profileImage;
 
     public Volunteer toEntity(Optional<Volunteer> existingEntity) {

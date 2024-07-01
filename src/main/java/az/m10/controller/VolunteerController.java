@@ -1,6 +1,7 @@
 package az.m10.controller;
 
 import az.m10.dto.VolunteerDTO;
+import az.m10.dto.VolunteerProfileImageDto;
 import az.m10.service.VolunteerService;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,8 @@ public class VolunteerController {
     }
 
     @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<VolunteerDTO> add(@RequestPart @Valid VolunteerDTO dto, @ModelAttribute MultipartFile profileImage) throws IOException {
-        VolunteerDTO e = volunteerService.add(dto, profileImage);
+    public ResponseEntity<VolunteerDTO> add(@Valid @RequestPart("dto") VolunteerDTO dto, @ModelAttribute VolunteerProfileImageDto file) throws IOException {
+        VolunteerDTO e = volunteerService.add(dto, file.getProfileImage());
         return ResponseEntity.ok(e);
     }
 
