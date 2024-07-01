@@ -69,7 +69,7 @@ public class ReservationScheduler {
         reservationRepository.updateReservationStatus(azerbaijanTime.toLocalTime());
 
         //Send notification to users who can add time to their reservations
-        System.out.println(azerbaijanTime.toLocalDate());
+        System.out.println(LocalTime.parse(now));
         List<Reservation> last30minReservations = reservationRepository.findReservationsWith30MinuteDifference(LocalTime.parse(now), azerbaijanTime.toLocalDate());
         System.out.println(last30minReservations);
         for (Reservation reservation : last30minReservations) {
