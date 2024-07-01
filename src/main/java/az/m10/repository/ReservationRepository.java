@@ -34,5 +34,5 @@ public interface ReservationRepository extends BaseJpaRepository<Reservation, Lo
     List<Reservation> findStartedReservations(@Param(("currentTime")) LocalTime currentTime);
 
     @Query(value = "SELECT * FROM reservations WHERE end_time = :currentTime AND created_at = :currentDate AND status = 'APPROVED'", nativeQuery = true)
-    List<Reservation> findEndedReservations(@Param(("currentTime")) LocalTime currentTime, @Param(("currentTime")) LocalDate currentDate);
+    List<Reservation> findEndedReservations(@Param(("currentTime")) LocalTime currentTime, @Param(("currentDate")) LocalDate currentDate);
 }
