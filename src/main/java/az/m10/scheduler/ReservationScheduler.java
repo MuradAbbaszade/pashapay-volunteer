@@ -26,10 +26,11 @@ public class ReservationScheduler {
     public void sendNotifications() throws ExecutionException, InterruptedException {
         ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
         ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String now = azerbaijanTime.format(formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String nowString = azerbaijanTime.format(formatter);
+        LocalTime now = LocalTime.parse(nowString + ":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
         //Send notification to users whose reservation started
-        List<Reservation> startedReservations = reservationRepository.findStartedReservations(LocalTime.parse(now));
+        List<Reservation> startedReservations = reservationRepository.findStartedReservations(now);
         for (Reservation reservation : startedReservations) {
             if (reservation.getVolunteer().getUser().getFcmToken() != null) {
                 fcmService.sendMessageToToken(new NotificationRequest(
@@ -42,7 +43,7 @@ public class ReservationScheduler {
         }
 
         //Send notification to users whose reservation ended
-        List<Reservation> endedReservations = reservationRepository.findEndedReservations(LocalTime.parse(now), azerbaijanTime.toLocalDate());
+        List<Reservation> endedReservations = reservationRepository.findEndedReservations(now, azerbaijanTime.toLocalDate());
         for (Reservation reservation : endedReservations) {
             if (reservation.getVolunteer().getUser().getFcmToken() != null) {
                 fcmService.sendMessageToToken(new NotificationRequest(
@@ -55,7 +56,7 @@ public class ReservationScheduler {
         }
 
         //Send notification to users whose reservation declined
-        List<Reservation> expiredReservations = reservationRepository.findExpiredReservations(LocalTime.parse(now));
+        List<Reservation> expiredReservations = reservationRepository.findExpiredReservations(now);
         for (Reservation reservation : expiredReservations) {
             if (reservation.getVolunteer().getUser().getFcmToken() != null) {
                 fcmService.sendMessageToToken(new NotificationRequest(
@@ -69,8 +70,7 @@ public class ReservationScheduler {
         reservationRepository.updateReservationStatus(azerbaijanTime.toLocalTime());
 
         //Send notification to users who can add time to their reservations
-        System.out.println(LocalTime.parse(now));
-        List<Reservation> last30minReservations = reservationRepository.findReservationsWith30MinuteDifference(LocalTime.parse(now), azerbaijanTime.toLocalDate());
+        List<Reservation> last30minReservations = reservationRepository.findReservationsWith30MinuteDifference(now, azerbaijanTime.toLocalDate());
         System.out.println(last30minReservations);
         for (Reservation reservation : last30minReservations) {
             if (reservation.getVolunteer().getUser().getFcmToken() != null) {
