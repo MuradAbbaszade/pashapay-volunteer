@@ -26,7 +26,7 @@ public class ReservationScheduler {
     public void sendNotifications() throws ExecutionException, InterruptedException {
         ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
         ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         String now = azerbaijanTime.format(formatter);
         //Send notification to users whose reservation started
         List<Reservation> startedReservations = reservationRepository.findStartedReservations(LocalTime.parse(now));
