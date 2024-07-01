@@ -28,7 +28,7 @@ public interface ReservationRepository extends BaseJpaRepository<Reservation, Lo
     void updateReservationStatus(@Param("currentTime") LocalTime currentTime);
 
     @Query(value = "SELECT * FROM reservations WHERE TIMESTAMPADD(MINUTE, -30, end_time) = :currentTime AND created_at = :currentDate AND status = 'APPROVED'", nativeQuery = true)
-    List<Reservation> findReservationsWith30MinuteDifference(@Param("currentTime") LocalTime currentTime, @Param(("currentTime")) LocalDate currentDate);
+    List<Reservation> findReservationsWith30MinuteDifference(@Param("currentTime") LocalTime currentTime, @Param(("currentDate")) LocalDate currentDate);
 
     @Query(value = "SELECT * FROM reservations WHERE start_time = :currentTime AND status = 'WAITING_FOR_APPROVE'", nativeQuery = true)
     List<Reservation> findStartedReservations(@Param(("currentTime")) LocalTime currentTime);

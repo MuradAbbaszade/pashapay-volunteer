@@ -42,7 +42,6 @@ public class ReservationScheduler {
         }
 
         //Send notification to users whose reservation ended
-        System.out.println(azerbaijanTime.toLocalDate());
         List<Reservation> endedReservations = reservationRepository.findEndedReservations(LocalTime.parse(now), azerbaijanTime.toLocalDate());
         for (Reservation reservation : endedReservations) {
             if (reservation.getVolunteer().getUser().getFcmToken() != null) {
