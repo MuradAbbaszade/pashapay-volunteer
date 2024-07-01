@@ -42,7 +42,7 @@ public class ReservationScheduler {
         }
 
         //Send notification to users whose reservation ended
-        List<Reservation> endedReservations = reservationRepository.findEndedReservations(LocalTime.parse(now));
+        List<Reservation> endedReservations = reservationRepository.findEndedReservations(LocalTime.parse(now), azerbaijanTime.toLocalDate());
         for (Reservation reservation : endedReservations) {
             if (reservation.getVolunteer().getUser().getFcmToken() != null) {
                 fcmService.sendMessageToToken(new NotificationRequest(
@@ -69,7 +69,7 @@ public class ReservationScheduler {
         reservationRepository.updateReservationStatus(azerbaijanTime.toLocalTime());
 
         //Send notification to users who can add time to their reservations
-        List<Reservation> last30minReservations = reservationRepository.findReservationsWith30MinuteDifference(LocalTime.parse(now));
+        List<Reservation> last30minReservations = reservationRepository.findReservationsWith30MinuteDifference(LocalTime.parse(now), azerbaijanTime.toLocalDate());
         for (Reservation reservation : last30minReservations) {
             if (reservation.getVolunteer().getUser().getFcmToken() != null) {
                 fcmService.sendMessageToToken(new NotificationRequest(
