@@ -78,6 +78,9 @@ public class VolunteerDTO extends BaseDTO<Volunteer> {
     @JsonIgnore
     private User user;
 
+    @NotEmpty
+    private String profileImage;
+
     public Volunteer toEntity(Optional<Volunteer> existingEntity) {
         Volunteer entity = existingEntity.orElseGet(Volunteer::new);
         entity.setName(this.getName());
@@ -90,6 +93,7 @@ public class VolunteerDTO extends BaseDTO<Volunteer> {
         entity.setDateOfBirth(this.getDateOfBirth());
         entity.setDateOfEmployment(this.getDateOfEmployment());
         entity.setDateOfResignation(this.getDateOfResignation());
+        entity.setProfileImage(this.getProfileImage());
         return entity;
     }
 }

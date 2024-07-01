@@ -23,3 +23,5 @@ databaseChangeLog:
       file: classpath:/db/changelog/changes/create_index_for_end_time_and_status.sql
   - include:
       file: classpath:/db/changelog/changes/add_fcm_token_to_users_table.sql
+  - include:
+      file: classpath:/db/changelog/changes/modify_table_volunteer_add_profile_image.sql

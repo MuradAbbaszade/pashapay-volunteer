@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .antMatchers("/api/v1/location/search").hasAnyAuthority("VOLUNTEER", "ADMIN")
                         .antMatchers("/api/v1/reservation/**").hasAnyAuthority("VOLUNTEER","ADMIN")
                         .antMatchers("/api/v1/admin/**").hasAnyAuthority("ADMIN")
+                        .antMatchers("/api/v1/reservation/admin/**").hasAnyAuthority("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(authenticationTokenFilterBean(),

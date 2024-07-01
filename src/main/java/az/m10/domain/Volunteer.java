@@ -73,6 +73,9 @@ public class Volunteer extends BaseEntity<VolunteerDTO> {
     @JoinColumn(name = "team_leader_id", nullable = false)
     private TeamLeader teamLeader;
 
+    @Column(name = "profile_image")
+    private String profileImage;
+
     @PrePersist
     public void prePersist() {
         ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
@@ -97,6 +100,7 @@ public class Volunteer extends BaseEntity<VolunteerDTO> {
         dto.setFormStatus(this.formStatus);
         dto.setTeamLeaderId(this.teamLeader != null ? this.teamLeader.getId() : null);
         dto.setCreatedAt(this.createdAt);
+        dto.setProfileImage(this.profileImage);
         return dto;
     }
 }

@@ -7,11 +7,16 @@ import az.m10.repository.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Service
-public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
+public class VolunteerService {
     private final VolunteerRepository volunteerRepository;
     private final AuthorityRepository authorityRepository;
     private final UserRepository userRepository;
@@ -19,10 +24,11 @@ public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
     private final PasswordEncoder passwordEncoder;
     private final BaseJpaRepository<Volunteer, Long> repository;
 
+    private final String PROFILE_IMAGE_PATH = "/src/main/resources/profile-images/";
+
     public VolunteerService(VolunteerRepository volunteerRepository, AuthorityRepository authorityRepository,
                             UserRepository userRepository, TeamLeaderRepository teamLeaderRepository, PasswordEncoder passwordEncoder,
                             BaseJpaRepository<Volunteer, Long> repository) {
-        super(repository);
         this.volunteerRepository = volunteerRepository;
         this.authorityRepository = authorityRepository;
         this.userRepository = userRepository;
@@ -32,7 +38,7 @@ public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
     }
 
     @Transactional
-    public VolunteerDTO add(VolunteerDTO dto) {
+    public VolunteerDTO add(VolunteerDTO dto, MultipartFile profileImageFile) {
         userRepository.findByUsername(dto.getUsername()).ifPresent(account -> {
             throw new IllegalArgumentException("This username is already taken");
         });
@@ -56,11 +62,31 @@ public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
         volunteer.setUser(user);
         volunteer = dto.toEntity(Optional.of(volunteer));
         volunteer.setTeamLeader(teamLeader);
+        volunteer.setProfileImage(saveProfileImage(profileImageFile));
         volunteer = volunteerRepository.save(volunteer);
         return volunteer.toDto();
     }
 
-    @Override
+    public String saveProfileImage(MultipartFile profileImageFile) {
+        if (profileImageFile != null && !profileImageFile.isEmpty()) {
+            String fileExtension = profileImageFile.getOriginalFilename().substring(profileImageFile.getOriginalFilename().lastIndexOf("."));
+            String fileName = UUID.randomUUID() + fileExtension;
+            try {
+                Path folderPath = Paths.get(PROFILE_IMAGE_PATH);
+                if (!Files.exists(folderPath)) {
+                    Files.createDirectories(folderPath);
+                }
+                byte[] bytes = profileImageFile.getBytes();
+                Path filePath = folderPath.resolve(fileName);
+                Files.write(filePath, bytes);
+                return filePath.toString();
+            } catch (IOException e) {
+                throw new IllegalArgumentException("An error occurred while saving profile image");
+            }
+        }
+        return null;
+    }
+
     public VolunteerDTO update(Long id, VolunteerDTO dto) {
         Volunteer volunteer = volunteerRepository.findById(id).orElseThrow(
                 () -> new CustomNotFoundException("Entity not found.")
@@ -82,5 +108,25 @@ public class VolunteerService extends GenericService<Volunteer, VolunteerDTO> {
         );
         user.setFcmToken(fcmToken);
         return userRepository.save(user);
+    }
+
+    public VolunteerDTO findById(Long id) {
+        Volunteer volunteer = volunteerRepository.findById(id).orElseThrow(
+                () -> new CustomNotFoundException("Entity not found")
+        );
+        return volunteer.toDto();
+    }
+
+    public void delete(Long id) {
+        volunteerRepository.deleteById(id);
+    }
+
+    public List<VolunteerDTO> findAll() {
+        List<Volunteer> entities = volunteerRepository.findAll();
+        List<VolunteerDTO> dtos = new ArrayList<>();
+        for (Volunteer entity : entities) {
+            dtos.add(entity.toDto());
+        }
+        return dtos;
     }
 }
