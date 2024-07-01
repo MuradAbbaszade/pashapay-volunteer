@@ -2,6 +2,7 @@ package az.m10.controller;
 
 import az.m10.auth.UserDetailsService;
 import az.m10.domain.User;
+import az.m10.dto.ReservationAdminResponse;
 import az.m10.dto.ReservationRequestDTO;
 import az.m10.dto.ReservationResponse;
 import az.m10.dto.ReservationResponseDTO;
@@ -33,9 +34,14 @@ public class ReservationController {
     }
 
     @GetMapping
-    public List<ReservationResponseDTO> findAll(Principal principal) {
+    public List<ReservationResponseDTO> findAllByUser(Principal principal) {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
-        return reservationService.findAll(user);
+        return reservationService.findAllByUser(user);
+    }
+
+    @GetMapping("/admin/all")
+    public List<ReservationAdminResponse> findAll() {
+        return reservationService.findAll();
     }
 
     @GetMapping("/initial")

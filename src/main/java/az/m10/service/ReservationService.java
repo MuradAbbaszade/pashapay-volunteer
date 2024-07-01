@@ -139,7 +139,7 @@ public class ReservationService {
         return null;
     }
 
-    public List<ReservationResponseDTO> findAll(User user) {
+    public List<ReservationResponseDTO> findAllByUser(User user) {
         ZoneId azerbaijanZone = ZoneId.of("Asia/Baku");
         ZonedDateTime azerbaijanTime = ZonedDateTime.now(azerbaijanZone);
         LocalDate azerbaijanTimeLocalDate = azerbaijanTime.toLocalDate();
@@ -152,6 +152,14 @@ public class ReservationService {
             if (reservation.getCreatedAt().equals(azerbaijanTimeLocalDate) && reservation.getEndTime().isAfter(azerbaijanTime.toLocalTime())) {
                 reservations.add(new ReservationResponseDTO(reservation));
             }
+        }
+        return reservations;
+    }
+
+    public List<ReservationAdminResponse> findAll() {
+        List<ReservationAdminResponse> reservations = new ArrayList<>();
+        for (Reservation reservation : reservationRepository.findAll()) {
+            reservations.add(new ReservationAdminResponse(reservation));
         }
         return reservations;
     }

@@ -71,7 +71,6 @@ public class ReservationScheduler {
 
         //Send notification to users who can add time to their reservations
         List<Reservation> last30minReservations = reservationRepository.findReservationsWith30MinuteDifference(now, azerbaijanTime.toLocalDate());
-        System.out.println(last30minReservations);
         for (Reservation reservation : last30minReservations) {
             if (reservation.getVolunteer().getUser().getFcmToken() != null) {
                 fcmService.sendMessageToToken(new NotificationRequest(
