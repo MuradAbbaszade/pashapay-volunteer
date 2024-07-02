@@ -62,7 +62,7 @@ public class VolunteerService {
         volunteer.setUser(user);
         volunteer = dto.toEntity(Optional.of(volunteer));
         volunteer.setTeamLeader(teamLeader);
-        volunteer.setProfileImage(saveProfileImage(profileImageFile));
+        //volunteer.setProfileImage(saveProfileImage(profileImageFile));
         volunteer = volunteerRepository.save(volunteer);
         return volunteer.toDto();
     }

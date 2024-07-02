@@ -27,8 +27,8 @@ public class VolunteerController {
     }
 
     @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<VolunteerDTO> add(@Valid @RequestPart("dto") VolunteerDTO dto, @ModelAttribute VolunteerProfileImageDto file) throws IOException {
-        VolunteerDTO e = volunteerService.add(dto, file.getProfileImage());
+    public ResponseEntity<VolunteerDTO> add(@Valid @RequestPart("dto") VolunteerDTO dto) throws IOException {
+        VolunteerDTO e = volunteerService.add(dto, null);
         return ResponseEntity.ok(e);
     }
 
