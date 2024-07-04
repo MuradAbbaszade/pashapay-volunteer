@@ -184,7 +184,8 @@ public class ReservationService {
         );
         List<Reservation> reservations = reservationRepository.findAllByVolunteer(volunteer);
         for (Reservation reservation : reservations) {
-            if (reservation.getCreatedAt().isEqual(azerbaijanTimeLocalDate) && reservation.getEndTime().isAfter(reservationTime)) {
+            if (reservation.getCreatedAt().isEqual(azerbaijanTimeLocalDate) && reservation.getEndTime().isAfter(reservationTime)
+                    && reservation.getStatus() != ReservationStatus.DECLINED) {
                 return true;
             }
         }
