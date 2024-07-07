@@ -11,8 +11,11 @@ public class JwtResponse {
     private final String TYPE = "Bearer";
     private String accessToken;
     private String refreshToken;
-    public JwtResponse(String accessToken, String refreshToken) {
+    private String profileImageUrl;
+
+    public JwtResponse(String accessToken, String refreshToken, String profileImageUrl) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
+        this.profileImageUrl = profileImageUrl;
     }
 }

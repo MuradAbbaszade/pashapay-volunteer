@@ -1,5 +1,6 @@
 package az.m10.controller;
 
+import az.m10.domain.Volunteer;
 import az.m10.dto.JwtResponse;
 import az.m10.dto.SignInDTO;
 import az.m10.dto.TokenRefreshRequest;
@@ -34,10 +35,11 @@ public class AuthController {
         if (signInDTO.getFcmToken() != null && !signInDTO.getFcmToken().equals("string")) {
             volunteerService.saveFcmToken(signInDTO.getUsername(), signInDTO.getFcmToken());
         }
+        Volunteer volunteer = volunteerService.findByUsername(signInDTO.getUsername());
         String refreshToken = jwtUtil.generateRefreshTokenFromUsername(signInDTO.getUsername());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = jwtUtil.generateToken(authentication);
-        return new JwtResponse(token, refreshToken);
+        return new JwtResponse(token, refreshToken, volunteer.getProfileImage());
     }
 
     @PostMapping("/refresh-token")
@@ -48,6 +50,9 @@ public class AuthController {
         String username = jwtUtil.extractClaims(request.getRefreshToken()).getSubject();
         String token = jwtUtil.generateTokenFromUsername(username);
         requestRefreshToken = jwtUtil.generateRefreshTokenFromUsername(username);
-        return new JwtResponse(token, requestRefreshToken);
+
+        Volunteer volunteer = volunteerService.findByUsername(username);
+        String refreshToken = jwtUtil.generateRefreshTokenFromUsername(username);
+        return new JwtResponse(token, requestRefreshToken, volunteer.getProfileImage());
     }
 }

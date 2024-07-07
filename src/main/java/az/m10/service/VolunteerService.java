@@ -129,4 +129,13 @@ public class VolunteerService {
         }
         return dtos;
     }
+
+    public Volunteer findByUsername(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new CustomNotFoundException("Entity not found")
+        );
+        return volunteerRepository.findByUser(user).orElseThrow(
+                () -> new CustomNotFoundException("Entity not found")
+        );
+    }
 }
