@@ -19,6 +19,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReservationService {
@@ -240,5 +241,27 @@ public class ReservationService {
             reservationResponse.setMinute30(true);
         } else reservationResponse.setMinute30(false);
         return reservationResponse;
+    }
+
+    public void delete(Long id) {
+        reservationRepository.deleteById(id);
+    }
+
+    public ReservationAdminResponse update(Long id, ReservationAdminResponse dto) {
+        Reservation entity = reservationRepository.findById(id).orElseThrow(
+                () -> new CustomNotFoundException("Entity not found.")
+        );
+        Volunteer volunteer = volunteerRepository.findById(id).orElseThrow(
+                () -> new CustomNotFoundException("Entity not found.")
+        );
+        Location location = locationRepository.findById(id).orElseThrow(
+                () -> new CustomNotFoundException("Entity not found.")
+        );
+        entity.setStartTime(LocalTime.parse(dto.getStartTime()));
+        entity.setEndTime(LocalTime.parse(dto.getEndTime()));
+        entity.setVolunteer(volunteer);
+        entity.setLocation(location);
+        entity.setStatus(ReservationStatus.valueOf(dto.getStatus()));
+        return new ReservationAdminResponse(reservationRepository.save(entity));
     }
 }

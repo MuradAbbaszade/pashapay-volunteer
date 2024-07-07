@@ -9,9 +9,14 @@ import az.m10.dto.ReservationResponseDTO;
 import az.m10.repository.UserRepository;
 import az.m10.service.ReservationService;
 import az.m10.util.JwtUtil;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -89,5 +94,24 @@ public class ReservationController {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         boolean approved = reservationService.approveReservation(reservationId, user);
         return ResponseEntity.ok(approved);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ReservationAdminResponse> update(@PathVariable Long id, @Valid @RequestBody ReservationAdminResponse dto) {
+        return ResponseEntity.ok(reservationService.update(id, dto));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        try {
+            reservationService.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (AccessDeniedException exp) {
+            throw new AccessDeniedException(exp.getMessage());
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (EmptyResultDataAccessException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
