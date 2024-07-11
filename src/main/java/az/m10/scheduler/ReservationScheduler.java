@@ -31,7 +31,6 @@ public class ReservationScheduler {
         LocalTime now = LocalTime.parse(nowString + ":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
         //Send notification to users whose reservation started
         List<Reservation> startedReservations = reservationRepository.findStartedReservations(now);
-        System.out.println(startedReservations);
         for (Reservation reservation : startedReservations) {
             if (reservation.getVolunteer().getUser().getFcmToken() != null) {
                 fcmService.sendMessageToToken(new NotificationRequest(

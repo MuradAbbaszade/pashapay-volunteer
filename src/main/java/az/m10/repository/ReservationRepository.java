@@ -19,7 +19,7 @@ public interface ReservationRepository extends BaseJpaRepository<Reservation, Lo
 
     List<Reservation> findAllByVolunteer(Volunteer volunteer);
 
-    @Query(value = "SELECT * FROM reservations WHERE status = 'WAITING_FOR_APPROVE' AND TIMESTAMPADD(MINUTE, 15, start_time) < :currentTime", nativeQuery = true)
+    @Query(value = "SELECT * FROM reservations WHERE status = 'WAITING_FOR_APPROVE' AND ADDTIME(start_time, '00:15:00') > :currentTime", nativeQuery = true)
     List<Reservation> findExpiredReservations(@Param("currentTime") LocalTime currentTime);
 
     @Modifying
