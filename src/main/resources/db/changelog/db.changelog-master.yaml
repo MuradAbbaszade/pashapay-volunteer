@@ -6,8 +6,6 @@ databaseChangeLog:
   - include:
       file: classpath:/db/changelog/changes/user_authorities.sql
   - include:
-      file: classpath:/db/changelog/changes/insert_admin_user.sql
-  - include:
       file: classpath:/db/changelog/changes/team_leaders.sql
   - include:
       file: classpath:/db/changelog/changes/volunteers.sql
