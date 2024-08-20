@@ -4,6 +4,7 @@ import az.m10.domain.Volunteer;
 import az.m10.dto.JwtResponse;
 import az.m10.dto.SignInDTO;
 import az.m10.dto.TokenRefreshRequest;
+import az.m10.exception.CustomNotFoundException;
 import az.m10.service.VolunteerService;
 import az.m10.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -35,11 +36,16 @@ public class AuthController {
         if (signInDTO.getFcmToken() != null && !signInDTO.getFcmToken().equals("string")) {
             volunteerService.saveFcmToken(signInDTO.getUsername(), signInDTO.getFcmToken());
         }
-        Volunteer volunteer = volunteerService.findByUsername(signInDTO.getUsername());
+        String profileImage;
+        try {
+            profileImage = volunteerService.findByUsername(signInDTO.getUsername()).getProfileImage();
+        } catch (CustomNotFoundException e) {
+            profileImage = null;
+        }
         String refreshToken = jwtUtil.generateRefreshTokenFromUsername(signInDTO.getUsername());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = jwtUtil.generateToken(authentication);
-        return new JwtResponse(token, refreshToken, volunteer.getProfileImage());
+        return new JwtResponse(token, refreshToken, profileImage);
     }
 
     @PostMapping("/refresh-token")
