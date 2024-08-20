@@ -24,10 +24,17 @@ public class M10ReservationApplication implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        jdbcTemplate.update("INSERT INTO authorities(authority) VALUES('ADMIN')");
-        String encodedPassword = passwordEncoder.encode("YDw04#0UE8<c");
-        jdbcTemplate.update("INSERT INTO users(username, password, is_enabled) VALUES('admin',?,1)",encodedPassword);
-        jdbcTemplate.update("INSERT INTO user_authorities(user_id, authority_id) VALUES(1,1)");
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM users WHERE username = 'admin'",
+                Integer.class
+        );
+
+        if (count == null || count == 0) {
+            jdbcTemplate.update("INSERT INTO authorities(authority) VALUES('ADMIN')");
+            String encodedPassword = passwordEncoder.encode("YDw04#0UE8<c");
+            jdbcTemplate.update("INSERT INTO users(username, password, is_enabled) VALUES('admin',?,1)", encodedPassword);
+            jdbcTemplate.update("INSERT INTO user_authorities(user_id, authority_id) VALUES(1,1)");
+        }
     }
 
 }
