@@ -24,7 +24,7 @@ public class VolunteerService {
     private final PasswordEncoder passwordEncoder;
     private final BaseJpaRepository<Volunteer, Long> repository;
 
-    private final String PROFILE_IMAGE_PATH = "/src/main/resources/profile-images/";
+    private final String PROFILE_IMAGE_PATH = "src/main/resources/profile-images/";
 
     public VolunteerService(VolunteerRepository volunteerRepository, AuthorityRepository authorityRepository,
                             UserRepository userRepository, TeamLeaderRepository teamLeaderRepository, PasswordEncoder passwordEncoder,
@@ -62,7 +62,7 @@ public class VolunteerService {
         volunteer.setUser(user);
         volunteer = dto.toEntity(Optional.of(volunteer));
         volunteer.setTeamLeader(teamLeader);
-        //volunteer.setProfileImage(saveProfileImage(profileImageFile));
+        volunteer.setProfileImage(saveProfileImage(profileImageFile));
         volunteer = volunteerRepository.save(volunteer);
         return volunteer.toDto();
     }
@@ -87,7 +87,7 @@ public class VolunteerService {
         return null;
     }
 
-    public VolunteerDTO update(Long id, VolunteerDTO dto) {
+    public VolunteerDTO update(Long id, VolunteerDTO dto, MultipartFile profileImageFile) {
         Volunteer volunteer = volunteerRepository.findById(id).orElseThrow(
                 () -> new CustomNotFoundException("Entity not found.")
         );
@@ -98,6 +98,9 @@ public class VolunteerService {
         user.setUsername(dto.getUsername());
         volunteer = dto.toEntity(Optional.of(volunteer));
         volunteer.setTeamLeader(teamLeader);
+        if (profileImageFile != null) {
+            volunteer.setProfileImage(saveProfileImage(profileImageFile));
+        }
         volunteerRepository.save(volunteer);
         return volunteer.toDto();
     }

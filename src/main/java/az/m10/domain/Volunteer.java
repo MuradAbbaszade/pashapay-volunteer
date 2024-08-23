@@ -100,7 +100,8 @@ public class Volunteer extends BaseEntity<VolunteerDTO> {
         dto.setFormStatus(this.formStatus);
         dto.setTeamLeaderId(this.teamLeader != null ? this.teamLeader.getId() : null);
         dto.setCreatedAt(this.createdAt);
-        dto.setProfileImage(this.profileImage);
+        dto.setProfileImage(this.profileImage != null ?
+                this.profileImage.substring(this.profileImage.lastIndexOf("\\") + 1) : null);
         return dto;
     }
 }

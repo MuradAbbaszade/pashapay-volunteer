@@ -1,10 +1,12 @@
 package az.m10.controller;
 
+import az.m10.dto.ProfileImageDTO;
 import az.m10.dto.VolunteerDTO;
 import az.m10.dto.VolunteerProfileImageDto;
 import az.m10.service.VolunteerService;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +29,10 @@ public class VolunteerController {
     }
 
     @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<VolunteerDTO> add(@Valid @RequestPart("dto") VolunteerDTO dto) throws IOException {
-        VolunteerDTO e = volunteerService.add(dto, null);
-        return ResponseEntity.ok(e);
+    public ResponseEntity<VolunteerDTO> add(@Valid @RequestPart VolunteerDTO dto,
+                                            @ModelAttribute ProfileImageDTO profileImageDTO) throws IOException {
+        VolunteerDTO createdVolunteer = volunteerService.add(dto, profileImageDTO.getProfileImage());
+        return ResponseEntity.ok(createdVolunteer);
     }
 
     @DeleteMapping("{id}")
@@ -52,8 +55,9 @@ public class VolunteerController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<VolunteerDTO> update(@PathVariable Long id, @Valid @RequestBody VolunteerDTO dto) {
-        VolunteerDTO e = volunteerService.update(id, dto);
+    public ResponseEntity<VolunteerDTO> update(@PathVariable Long id, @Valid @RequestPart VolunteerDTO dto,
+                                               @ModelAttribute ProfileImageDTO profileImageDTO) {
+        VolunteerDTO e = volunteerService.update(id, dto, profileImageDTO.getProfileImage());
         return ResponseEntity.ok(e);
     }
 

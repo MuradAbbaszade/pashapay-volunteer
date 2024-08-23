@@ -78,6 +78,7 @@ public class VolunteerDTO extends BaseDTO<Volunteer> {
     @JsonIgnore
     private User user;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String profileImage;
 
     public Volunteer toEntity(Optional<Volunteer> existingEntity) {
@@ -92,7 +93,6 @@ public class VolunteerDTO extends BaseDTO<Volunteer> {
         entity.setDateOfBirth(this.getDateOfBirth());
         entity.setDateOfEmployment(this.getDateOfEmployment());
         entity.setDateOfResignation(this.getDateOfResignation());
-        entity.setProfileImage(this.getProfileImage());
         return entity;
     }
 }

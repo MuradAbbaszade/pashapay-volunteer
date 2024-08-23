@@ -47,7 +47,6 @@ jwt:
 
 app:
   firebase-configuration-file: m10volunteer-7de76-firebase-adminsdk-koso1-aafdb3b508.json
-
 #server:
 #  port: 443
 #  ssl:
