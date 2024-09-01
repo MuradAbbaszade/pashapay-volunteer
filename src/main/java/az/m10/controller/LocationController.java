@@ -57,7 +57,7 @@ public class LocationController extends GenericController<Location, LocationDTO>
             for (Reservation reservation : location.getReservations()) {
                 if ((reservation.getStatus().equals(ReservationStatus.WAITING_FOR_APPROVE)
                         || reservation.getStatus().equals(ReservationStatus.APPROVED)) &&
-                        reservation.getCreatedAt().equals(LocalDate.now()) &&
+                        reservation.getCreatedAt().equals(azerbaijanTime.toLocalDate()) &&
                         (reservation.getEndTime().isAfter(LocalTime.parse(reservationTime))
                                 && reservation.getStartTime().isBefore(LocalTime.parse(reservationTime).plusHours(range)))) {
                     ReservationTimeResponse reservationTimeResponse = new ReservationTimeResponse();
