@@ -2,7 +2,6 @@ package az.m10.controller;
 
 import az.m10.dto.ProfileImageDTO;
 import az.m10.dto.VolunteerDTO;
-import az.m10.service.FCMService;
 import az.m10.service.VolunteerService;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/api/v1/admin/volunteer")
@@ -61,7 +59,7 @@ public class VolunteerController {
     }
 
     @GetMapping
-    public List<VolunteerDTO> findAll() throws ExecutionException, InterruptedException {
+    public List<VolunteerDTO> findAll() {
         return volunteerService.findAll();
     }
 }
