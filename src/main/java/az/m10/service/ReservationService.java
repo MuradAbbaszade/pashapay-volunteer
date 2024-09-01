@@ -251,10 +251,10 @@ public class ReservationService {
         Reservation entity = reservationRepository.findById(id).orElseThrow(
                 () -> new CustomNotFoundException("Entity not found.")
         );
-        Volunteer volunteer = volunteerRepository.findById(id).orElseThrow(
+        Volunteer volunteer = volunteerRepository.findById(dto.getVolunteerId()).orElseThrow(
                 () -> new CustomNotFoundException("Entity not found.")
         );
-        Location location = locationRepository.findById(id).orElseThrow(
+        Location location = locationRepository.findById(dto.getLocationId()).orElseThrow(
                 () -> new CustomNotFoundException("Entity not found.")
         );
         entity.setStartTime(LocalTime.parse(dto.getStartTime()));
