@@ -1,9 +1,6 @@
 package az.m10.domain;
 
-import az.m10.dto.BaseDTO;
-import az.m10.dto.TeamLeaderDTO;
 import az.m10.dto.VolunteerDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,7 +9,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Getter
 @Setter

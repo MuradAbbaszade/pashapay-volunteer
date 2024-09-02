@@ -4,7 +4,6 @@ import az.m10.dto.BaseDTO;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.util.Optional;
 
 @EqualsAndHashCode
 public abstract class BaseEntity<E extends BaseDTO> implements Serializable {

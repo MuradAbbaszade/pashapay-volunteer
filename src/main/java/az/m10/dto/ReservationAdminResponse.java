@@ -1,7 +1,6 @@
 package az.m10.dto;
 
 import az.m10.domain.Reservation;
-import az.m10.domain.enums.ReservationStatus;
 import lombok.*;
 
 @Setter
