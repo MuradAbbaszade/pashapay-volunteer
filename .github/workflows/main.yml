@@ -22,12 +22,12 @@ jobs:
         password: ${{ secrets.SSH_PASSWORD }}
         script: |
           cd /opt/salesBackendAPK/
-          docker compose down
-          mv app.log /home/gitaction/app.log.$(date +%F-%H-%M)
-          rm -rf *
-          docker image rm salesbackendapk-app
+          sudo docker compose down
+          sudo mv app.log /home/gitaction/app.log.$(date +%F-%H-%M)
+          sudo rm -rf *
+          sudo docker image rm salesbackendapk-app
           cd ~/
           git clone git@github.com:MuradAbbaszade/pashapay-volunteer.git
           cd /opt/salesBackendAPK/
-          mv ~/pashapay-volunteer/* /opt/salesBackendAPK/
-          docker compose up -d
+          sudo mv ~/pashapay-volunteer/* /opt/salesBackendAPK/
+          sudo docker compose up -d
