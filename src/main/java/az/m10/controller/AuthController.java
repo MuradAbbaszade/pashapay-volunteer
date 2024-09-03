@@ -37,6 +37,8 @@ public class AuthController {
         String profileImage;
         try {
             profileImage = volunteerService.findByUsername(signInDTO.getUsername()).getProfileImage();
+            profileImage = profileImage != null ?
+                    "https://sales-gradle.pashapay.az/images/".concat(profileImage.substring(profileImage.lastIndexOf("/") + 1)) : null;
         } catch (CustomNotFoundException e) {
             profileImage = null;
         }
