@@ -17,10 +17,10 @@ jobs:
       uses: appleboy/ssh-action@v0.1.3
       with:
         host: ${{ secrets.SSH_IP }}
-        port: 2222
+        port: 2226
         username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
-        #script: |
+        script: |
           cd /opt/salesBackendAPK/
           docker compose down
           mv app.log /home/gitaction/app.log.$(date +%F-%H-%M)
