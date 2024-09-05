@@ -9,6 +9,8 @@ import az.m10.dto.ReservationResponseDTO;
 import az.m10.repository.UserRepository;
 import az.m10.service.ReservationService;
 import az.m10.util.JwtUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +28,10 @@ import java.util.List;
 @CrossOrigin(origins = {"http://localhost:3000", "*"})
 public class ReservationController {
     private ReservationService reservationService;
-
     private final UserRepository userRepository;
     private UserDetailsService userDetailsService;
     private JwtUtil jwtUtil;
+    private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);
 
     public ReservationController(ReservationService reservationService, UserRepository userRepository, UserDetailsService userDetailsService, JwtUtil jwtUtil) {
         this.reservationService = reservationService;
@@ -65,6 +67,7 @@ public class ReservationController {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         ReservationResponse reservationResponse = reservationService.add(reservationDTO, user);
         if (reservationResponse == null) throw new IllegalArgumentException("Location is not available");
+        logger.info("Reservation({}) created by user:{}", reservationResponse.getReservationId(), user.getId());
         return ResponseEntity.ok(reservationResponse);
     }
 
@@ -75,6 +78,7 @@ public class ReservationController {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         ReservationResponse reservationResponse = reservationService.addTimeToReservation(reservationId, user);
         if (reservationResponse == null) throw new IllegalArgumentException("Location is not available");
+        logger.info("Reservation({}) time extended by user:{}", reservationResponse.getReservationId(), user.getId());
         return ResponseEntity.ok(reservationResponse);
     }
 
@@ -84,6 +88,7 @@ public class ReservationController {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         ReservationResponse reservationResponse = reservationService.quickReserve(reservationDTO, user);
         if (reservationResponse == null) throw new IllegalArgumentException("Location is not available");
+        logger.info("Reservation({}) created by user:{} (quick reserve)", reservationResponse.getReservationId(), user.getId());
         return ResponseEntity.ok(reservationResponse);
     }
 
@@ -93,6 +98,7 @@ public class ReservationController {
             Principal principal) {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         boolean approved = reservationService.approveReservation(reservationId, user);
+        logger.info("Reservation({}) approved by user:{}", reservationId, user.getId());
         return ResponseEntity.ok(approved);
     }
 
