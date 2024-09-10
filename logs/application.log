@@ -1,111 +1,37 @@
-2024-09-05 19:04:04 INFO  az.m10.M10ReservationApplication - Starting M10ReservationApplication using Java 11.0.19 on DESKTOP-VQ50BMG with PID 8952 (C:\Users\DELL\reservation\build\classes\java\main started by DELL in C:\Users\DELL\reservation)
-2024-09-05 19:04:04 INFO  az.m10.M10ReservationApplication - No active profile set, falling back to 1 default profile: "default"
-2024-09-05 19:04:04 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
-2024-09-05 19:04:05 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-09-05 19:04:05 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 106 ms. Found 6 JPA repository interfaces.
-2024-09-05 19:04:06 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
-2024-09-05 19:04:06 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-09-05 19:04:06 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-09-05 19:04:06 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.82]
-2024-09-05 19:04:07 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-09-05 19:04:07 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3048 ms
-2024-09-05 19:04:07 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-09-05 19:04:07 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-09-05 19:04:07 WARN  liquibase.util - Failed to perform a method call for SnakeYaml because the version of SnakeYaml being used is too old. Consider upgrading to a SnakeYaml version equal to or newer than 1.32, by downloading and installing a newer version of Liquibase (which includes a newer version of SnakeYaml). Loading particularly large JSON and YAML documents (like snapshots) in Liquibase may fail if SnakeYaml is not upgraded.
-2024-09-05 19:04:08 INFO  liquibase.changelog - Reading from reservation.databasechangelog
-2024-09-05 19:04:08 INFO  liquibase.changelog - Reading from reservation.databasechangelog
-2024-09-05 19:04:08 INFO  liquibase.util - UPDATE SUMMARY
-2024-09-05 19:04:08 INFO  liquibase.util - Run:                          0
-2024-09-05 19:04:08 INFO  liquibase.util - Previously run:              13
-2024-09-05 19:04:08 INFO  liquibase.util - Filtered out:                 0
-2024-09-05 19:04:08 INFO  liquibase.util - -------------------------------
-2024-09-05 19:04:08 INFO  liquibase.util - Total change sets:           13
-2024-09-05 19:04:08 INFO  liquibase.util - Update summary generated
-2024-09-05 19:04:08 INFO  liquibase.lockservice - Successfully released change log lock
-2024-09-05 19:04:08 INFO  liquibase.command - Command execution complete
-2024-09-05 19:04:08 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-09-05 19:04:08 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.10.Final
-2024-09-05 19:04:09 INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2024-09-05 19:04:09 INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2024-09-05 19:04:10 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2024-09-05 19:04:10 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-09-05 19:04:11 INFO  az.m10.config.FCMInitializer - Firebase application initialized
-2024-09-05 19:04:12 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-09-05 19:04:12 INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@31d64d0f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c165921, org.springframework.security.web.context.SecurityContextPersistenceFilter@3e3c6323, org.springframework.security.web.header.HeaderWriterFilter@1c294a17, org.springframework.web.filter.CorsFilter@47fb30ca, org.springframework.security.web.authentication.logout.LogoutFilter@1d5ec2ed, az.m10.filter.JwtAuthFilter@2da8ed80, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7725470b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@77d0a492, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@72bef795, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7cecd959, org.springframework.security.web.session.SessionManagementFilter@15b882a0, org.springframework.security.web.access.ExceptionTranslationFilter@581cb879, org.springframework.security.web.access.intercept.AuthorizationFilter@70c2a046]
-2024-09-05 19:04:13 INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-09-05 19:04:13 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
-2024-09-05 19:04:13 INFO  az.m10.M10ReservationApplication - Started M10ReservationApplication in 10.992 seconds (JVM running for 12.216)
-2024-09-05 19:07:28 INFO  az.m10.M10ReservationApplication - Starting M10ReservationApplication using Java 11.0.19 on DESKTOP-VQ50BMG with PID 5860 (C:\Users\DELL\reservation\build\classes\java\main started by DELL in C:\Users\DELL\reservation)
-2024-09-05 19:07:28 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
-2024-09-05 19:07:28 INFO  az.m10.M10ReservationApplication - No active profile set, falling back to 1 default profile: "default"
-2024-09-05 19:07:29 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-09-05 19:07:29 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 105 ms. Found 6 JPA repository interfaces.
-2024-09-05 19:07:31 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
-2024-09-05 19:07:31 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-09-05 19:07:31 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-09-05 19:07:31 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.82]
-2024-09-05 19:07:31 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-09-05 19:07:31 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3242 ms
-2024-09-05 19:07:31 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-09-05 19:07:32 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-09-05 19:07:32 WARN  liquibase.util - Failed to perform a method call for SnakeYaml because the version of SnakeYaml being used is too old. Consider upgrading to a SnakeYaml version equal to or newer than 1.32, by downloading and installing a newer version of Liquibase (which includes a newer version of SnakeYaml). Loading particularly large JSON and YAML documents (like snapshots) in Liquibase may fail if SnakeYaml is not upgraded.
-2024-09-05 19:07:32 INFO  liquibase.changelog - Reading from reservation.databasechangelog
-2024-09-05 19:07:32 INFO  liquibase.changelog - Reading from reservation.databasechangelog
-2024-09-05 19:07:32 INFO  liquibase.util - UPDATE SUMMARY
-2024-09-05 19:07:32 INFO  liquibase.util - Run:                          0
-2024-09-05 19:07:32 INFO  liquibase.util - Previously run:              13
-2024-09-05 19:07:32 INFO  liquibase.util - Filtered out:                 0
-2024-09-05 19:07:32 INFO  liquibase.util - -------------------------------
-2024-09-05 19:07:32 INFO  liquibase.util - Total change sets:           13
-2024-09-05 19:07:32 INFO  liquibase.util - Update summary generated
-2024-09-05 19:07:32 INFO  liquibase.lockservice - Successfully released change log lock
-2024-09-05 19:07:32 INFO  liquibase.command - Command execution complete
-2024-09-05 19:07:32 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-09-05 19:07:32 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.10.Final
-2024-09-05 19:07:33 INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2024-09-05 19:07:33 INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2024-09-05 19:07:34 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2024-09-05 19:07:34 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-09-05 19:07:35 INFO  az.m10.config.FCMInitializer - Firebase application initialized
-2024-09-05 19:07:36 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-09-05 19:07:36 INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6d4b09c7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4f50e974, org.springframework.security.web.context.SecurityContextPersistenceFilter@3e9e7a70, org.springframework.security.web.header.HeaderWriterFilter@7441edeb, org.springframework.web.filter.CorsFilter@76ecbfbf, org.springframework.security.web.authentication.logout.LogoutFilter@6dcb4f30, az.m10.filter.JwtAuthFilter@12e13abd, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7b9b244e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@78762e87, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2aacf54b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6223dbed, org.springframework.security.web.session.SessionManagementFilter@44b99467, org.springframework.security.web.access.ExceptionTranslationFilter@631c6ef4, org.springframework.security.web.access.intercept.AuthorizationFilter@9677f54]
-2024-09-05 19:07:36 INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-09-05 19:07:36 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
-2024-09-05 19:07:36 INFO  az.m10.M10ReservationApplication - Started M10ReservationApplication in 9.716 seconds (JVM running for 10.469)
-2024-09-05 22:10:51 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
-2024-09-05 22:10:51 INFO  az.m10.M10ReservationApplication - Starting M10ReservationApplication using Java 11.0.19 on DESKTOP-VQ50BMG with PID 7496 (C:\Users\DELL\reservation\build\classes\java\main started by DELL in C:\Users\DELL\reservation)
-2024-09-05 22:10:51 INFO  az.m10.M10ReservationApplication - No active profile set, falling back to 1 default profile: "default"
-2024-09-05 22:10:53 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-09-05 22:10:53 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 100 ms. Found 6 JPA repository interfaces.
-2024-09-05 22:10:54 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
-2024-09-05 22:10:54 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-09-05 22:10:54 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-09-05 22:10:54 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.82]
-2024-09-05 22:10:54 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-09-05 22:10:54 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2933 ms
-2024-09-05 22:10:55 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-09-05 22:10:55 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-09-05 22:10:55 WARN  liquibase.util - Failed to perform a method call for SnakeYaml because the version of SnakeYaml being used is too old. Consider upgrading to a SnakeYaml version equal to or newer than 1.32, by downloading and installing a newer version of Liquibase (which includes a newer version of SnakeYaml). Loading particularly large JSON and YAML documents (like snapshots) in Liquibase may fail if SnakeYaml is not upgraded.
-2024-09-05 22:10:55 INFO  liquibase.changelog - Reading from reservation.databasechangelog
-2024-09-05 22:10:56 INFO  liquibase.changelog - Reading from reservation.databasechangelog
-2024-09-05 22:10:56 INFO  liquibase.util - UPDATE SUMMARY
-2024-09-05 22:10:56 INFO  liquibase.util - Run:                          0
-2024-09-05 22:10:56 INFO  liquibase.util - Previously run:              13
-2024-09-05 22:10:56 INFO  liquibase.util - Filtered out:                 0
-2024-09-05 22:10:56 INFO  liquibase.util - -------------------------------
-2024-09-05 22:10:56 INFO  liquibase.util - Total change sets:           13
-2024-09-05 22:10:56 INFO  liquibase.util - Update summary generated
-2024-09-05 22:10:56 INFO  liquibase.lockservice - Successfully released change log lock
-2024-09-05 22:10:56 INFO  liquibase.command - Command execution complete
-2024-09-05 22:10:56 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-09-05 22:10:56 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.10.Final
-2024-09-05 22:10:56 INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2024-09-05 22:10:57 INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2024-09-05 22:10:57 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2024-09-05 22:10:57 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-09-05 22:10:58 INFO  az.m10.config.FCMInitializer - Firebase application initialized
-2024-09-05 22:10:59 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-09-05 22:10:59 INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1ffe7c42, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5f72aaed, org.springframework.security.web.context.SecurityContextPersistenceFilter@63437af4, org.springframework.security.web.header.HeaderWriterFilter@4d1a763c, org.springframework.web.filter.CorsFilter@1d9295e2, org.springframework.security.web.authentication.logout.LogoutFilter@5205b3e2, az.m10.filter.JwtAuthFilter@5d3d5242, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@524241d9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6c7bc8ac, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5d7f4cbb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4b708c16, org.springframework.security.web.session.SessionManagementFilter@51c0346d, org.springframework.security.web.access.ExceptionTranslationFilter@1f50fe84, org.springframework.security.web.access.intercept.AuthorizationFilter@628f642d]
-2024-09-05 22:11:00 INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-09-05 22:11:00 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
-2024-09-05 22:11:00 INFO  az.m10.M10ReservationApplication - Started M10ReservationApplication in 9.246 seconds (JVM running for 9.875)
+2024-09-06 14:48:16 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
+2024-09-06 14:48:16 INFO  az.m10.M10ReservationApplication - Starting M10ReservationApplication using Java 11.0.19 on DESKTOP-VQ50BMG with PID 8232 (C:\Users\DELL\reservation\build\classes\java\main started by DELL in C:\Users\DELL\reservation)
+2024-09-06 14:48:16 INFO  az.m10.M10ReservationApplication - No active profile set, falling back to 1 default profile: "default"
+2024-09-06 14:48:17 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-06 14:48:18 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 85 ms. Found 6 JPA repository interfaces.
+2024-09-06 14:48:19 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2024-09-06 14:48:19 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-09-06 14:48:19 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-09-06 14:48:19 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.82]
+2024-09-06 14:48:19 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-09-06 14:48:19 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2514 ms
+2024-09-06 14:48:19 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-09-06 14:48:19 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-09-06 14:48:20 WARN  liquibase.util - Failed to perform a method call for SnakeYaml because the version of SnakeYaml being used is too old. Consider upgrading to a SnakeYaml version equal to or newer than 1.32, by downloading and installing a newer version of Liquibase (which includes a newer version of SnakeYaml). Loading particularly large JSON and YAML documents (like snapshots) in Liquibase may fail if SnakeYaml is not upgraded.
+2024-09-06 14:48:20 INFO  liquibase.changelog - Reading from reservation.databasechangelog
+2024-09-06 14:48:20 INFO  liquibase.changelog - Reading from reservation.databasechangelog
+2024-09-06 14:48:20 INFO  liquibase.util - UPDATE SUMMARY
+2024-09-06 14:48:20 INFO  liquibase.util - Run:                          0
+2024-09-06 14:48:20 INFO  liquibase.util - Previously run:              13
+2024-09-06 14:48:20 INFO  liquibase.util - Filtered out:                 0
+2024-09-06 14:48:20 INFO  liquibase.util - -------------------------------
+2024-09-06 14:48:20 INFO  liquibase.util - Total change sets:           13
+2024-09-06 14:48:20 INFO  liquibase.util - Update summary generated
+2024-09-06 14:48:20 INFO  liquibase.lockservice - Successfully released change log lock
+2024-09-06 14:48:20 INFO  liquibase.command - Command execution complete
+2024-09-06 14:48:20 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-06 14:48:20 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.10.Final
+2024-09-06 14:48:20 INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-06 14:48:21 INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2024-09-06 14:48:22 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-06 14:48:22 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-06 14:48:22 INFO  az.m10.config.FCMInitializer - Firebase application initialized
+2024-09-06 14:48:23 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-06 14:48:23 INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6f744b4e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7cd6b76a, org.springframework.security.web.context.SecurityContextPersistenceFilter@365eaef, org.springframework.security.web.header.HeaderWriterFilter@ab11e76, org.springframework.web.filter.CorsFilter@2165b170, org.springframework.security.web.authentication.logout.LogoutFilter@112f8f8f, az.m10.filter.JwtAuthFilter@1f5a1ad4, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@3fb5809a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@9e2b199, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@58df431e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@9677f54, org.springframework.security.web.session.SessionManagementFilter@7672dd7a, org.springframework.security.web.access.ExceptionTranslationFilter@21b75073, org.springframework.security.web.access.intercept.AuthorizationFilter@7e38d2a2]
+2024-09-06 14:48:24 INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-09-06 14:48:24 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2024-09-06 14:48:24 INFO  az.m10.M10ReservationApplication - Started M10ReservationApplication in 7.948 seconds (JVM running for 8.478)

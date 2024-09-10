@@ -31,9 +31,7 @@ public class AuthController {
                         signInDTO.getPassword()
                 )
         );
-        if (signInDTO.getFcmToken() != null && !signInDTO.getFcmToken().equals("string")) {
-            volunteerService.saveFcmToken(signInDTO.getUsername(), signInDTO.getFcmToken());
-        }
+        volunteerService.saveFcmToken(signInDTO.getUsername(), signInDTO.getFcmToken());
         String profileImage;
         try {
             profileImage = volunteerService.findByUsername(signInDTO.getUsername()).getProfileImage();
