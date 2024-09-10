@@ -32,7 +32,7 @@ jwt:
     string: Authorization
 
 app:
-  firebase-configuration-file: m10volunteer-7de76-firebase-adminsdk-koso1-aafdb3b508.json
+  firebase-configuration-file: pashavolunteer-firebase-adminsdk-36lum-1d595359fd.json
 
 logging:
   file:
